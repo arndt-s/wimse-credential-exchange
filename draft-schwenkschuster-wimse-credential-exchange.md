@@ -33,6 +33,8 @@ author:
 normative:
   RFC4210:
   RFC7030:
+  RFC7521: Assertion flow
+  RFC8693: Token exchange
 
 informative:
 
@@ -137,13 +139,13 @@ Existing trust & identity framework often consist of a protocol or framework to 
 
 The following bullets give an overview of the existing patterns and when to use them based on the needs given above:
 
-* OAuth Token Exchange (TODO) is:
+* OAuth Token Exchange {{RFC8693}} is:
   * meant for a change in scope.
   * meant for a change in identity.
+  * to a certain extend meant for a change in format (limited).
   * NOT meant for a change in trust domain.
-  * NOT meant for a change in format.
 
-* OAuth Assertion Framework (TODO) is:
+* OAuth Assertion Framework {{RFC8693}} is:
   * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope & potentially format is unavoidable but not the primary use case.
   * NOT meant for inter-domain exchanges.
 
@@ -185,7 +187,7 @@ The "Credential Exchanger" shown in the figure may be the Workload Platform itse
 
 # Consideration
 
-## Credential exchange decreases trust
+## Credential exchange cannot increase trust
 
 A credential exchange is an authenticated way to retrieve credential(s). Thus, the issued credential cannot have higher trust than the credential that was used to authenticate the request. This is particularly relevant when a credential is required which format and frameworks is of a higher trust than the one that was used to authenticate the request. This includes exchanging credentials not requiring proof of key possession to credentials carrying it.
 
@@ -193,7 +195,7 @@ Generally, these situations are not reccommended and should be avoided. Workload
 
 Alternatively, the authentication request should be enriched with additional identification that increases the level of authentication. E.g. authentication and additional proof of platform attestation.
 
-## Credential exchange does not replace provisioning
+## Credential exchange cannot replace provisioning
 
 Because credential exchange is authenticated it cannot replace provisioning. Without an initial credential a workload cannot facilitate credential exchange as there's no proof the workload is eligable for the requested credential.
 
@@ -217,4 +219,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+Big shoutout to the WIMSE token exchange design team (Dean Saxe, Yaroslav Rosomakho, Andrii Deinega, Dmitry Izumskiy, Ken McCracken and George Fletcher) that have done some groundlaying work in this area.
