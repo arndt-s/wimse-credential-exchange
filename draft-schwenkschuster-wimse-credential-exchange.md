@@ -145,7 +145,7 @@ The following bullets give an overview of the existing patterns and when to use 
   * to a certain extend meant for a change in format (limited).
   * NOT meant for a change in trust domain.
 
-* OAuth Assertion Framework {{RFC8693}} is:
+* OAuth Assertion Framework {{RFC7521}} is:
   * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope & potentially format is unavoidable but not the primary use case.
   * NOT meant for inter-domain exchanges.
 
