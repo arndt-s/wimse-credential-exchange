@@ -1,0 +1,81 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-02-02T01:18:18.763524+00:00",
+  "repo": "arndt-s/wimse-credential-exchange",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDONxWjJ86JpcOu",
+      "title": "Editorial updates",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/1",
+      "state": "OPEN",
+      "author": "PieterKas",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed use of \"identity\" and clarified identifier and credential relationship. \r\n\r\nSeparated out authentication from authorisation.",
+      "createdAt": "2025-01-31T14:17:59Z",
+      "updatedAt": "2025-01-31T14:17:59Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "8331e96431846347d8a6bad171eb1385464cdd3a",
+      "headRepository": "PieterKas/wimse-credential-exchange",
+      "headRefName": "patch-1",
+      "headRefOid": "4e9e2ee60ec45c25b3a754f7ffeb5b2fd8081695",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
