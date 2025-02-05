@@ -48,15 +48,15 @@ This document describes various situations where a workload requires another cre
 
 # Introduction
 
-Workload Identity credentials come in all shapes and forms. JSON Web Tokens are popular but also X.509 certificates are commonly used. When a workload is provisioned it can be assumed that it gets all of the following
+Workload Identity credentials are expressed in multiple formats. The choice of format depends on the security properties, authentication protocols and the formats accepted by the systems it interacts with. JSON Web Tokens and X.509 certificates are commonly used since they have been adopted in broadly deployed protocols like OAuth, OpenID Connect and TLS. A workload may be provisioned with multiple credentials to allow it to to interact with different systems and protocols. Workload credentials typically include the following information:
 
-* an identity in the form of an identifier.
+* an identifier
 
-* one or multiple credentials that allow the workload to represent itself (as that identity). Multiple credentials are often different types but representing the same identity.
+* an indication of the trust domain where the credential was issued, or where it may be accepted. (TODO not sure - also should other attributes like time to live, not before, audience restrictions etc be mentioned?)
 
-* an indication of trust domain. (TODO not sure)
+If multiple credentials are provisioned for a workload, it may share the same identifier.
 
-Identity, credential and trust domain enable the workload to interact within its environment, communicate to sibling workloads (same trust domain), access APIs inside that trust domain or provide an API itself.
+The credential format provides protocol compatibility, enabling the workload to use protocols that support the credential format. The combination of identifier and trust domain determines whether a credential will be accepted for authentication purposes. The identifier, trust domain and other attributes in the credential may be used as part of access control and authorization decisions. Workloads may use these credentials to authenticate itself to another workload (e.g. accessing an API) or be authenticated by other workloads (e.g. when hosting a service or API to other workloads).
 
 ## Needs
 
