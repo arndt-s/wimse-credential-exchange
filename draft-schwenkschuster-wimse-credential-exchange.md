@@ -76,7 +76,7 @@ Credential format is dificult to define. Some formats are opague to the workload
 A credential in the same format representing the same identity but scoped differently. Examples are:
 
 * A JWT credential audienced to interact with the Workload platform but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
-* A X.509 credential allowing the workload to TODO based on X.509 Key Usage extension but the workload requires additonal usages.
+* An X.509 credential is constrained to a certain key usage but the workload requires additional ones. For instance the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
 
 Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload.
 
@@ -147,7 +147,7 @@ The following bullets give an overview of the existing patterns and when to use 
 
 * OAuth Assertion Framework {{RFC7521}} is:
   * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope & potentially format is unavoidable but not the primary use case.
-  * NOT meant for inter-domain exchanges.
+  * NOT meant for exchanges within a trust domain.
 
 * X.509 Certificate Management Protocol {{RFC4210}}:
   * Is this valid here? If yes, write about it.
@@ -182,6 +182,7 @@ Workload environments can be highly dynamic and connected with a high variety of
 TODO: describe steps
 
 The author believes that a specific protocol that fits all credential formats and trust frameworks is not feasable while remaining the existing security promises of the format or framework. It rather believes that a profile for each scenario is the best way forward and welcomes them to profile this specificiation for their concrete use cases. As a general guidance it is reccommended
+
 * to narrowly scope the scenarios and don't build a one-fits-all exchange for a specific format.
 * to decouple authentication and access control from the actual exchange as best as possible. E.g. a credential of one profile should be allowed as a mean of authentication to exchange to a credential of a different profile, regardless if the profiles are aware of each other or not.
 
@@ -219,6 +220,11 @@ This document has no IANA actions.
 
 # Document History
 <cref>RFC Editor: please remove before publication.</cref>
+
+## draft-schwenkschuster-wimse-credential-exchange-xx
+
+* Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
+* Rephrased X509 change of scope example to be more clear.
 
 ## draft-schwenkschuster-wimse-credential-exchange-00
 
