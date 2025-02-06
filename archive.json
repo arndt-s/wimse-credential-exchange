@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-04T01:14:46.628076+00:00",
+  "timestamp": "2025-02-06T01:15:54.173756+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -49,33 +49,126 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 3,
+      "id": "I_kwDONxWjJ86o2ebc",
+      "title": "Credentials without authentication purpose",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/3",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nThe document treats credentials as opaque and gives plenty of examples when credentials should be exchanged. The focus and environment of this document is clearly authentication but workloads may also require credentials for other purposes such as encryption.\n\n**Describe the solution you'd like**\nWe should be clear about the scope here.\n\n**Describe alternatives you've considered**\nWe can either include all sorts or limit it to authentication.\n\n**Additional context**\nIn the `Change of scope` section the following example is given that indicate encryption:\n\n> An X.509 credential is constrained to a certain key usage but the workload requires additional ones. For instance the existing certificate allows for digitalSignature but keyEncipherment or dataEncipherment is required.",
+      "createdAt": "2025-02-05T12:44:25Z",
+      "updatedAt": "2025-02-05T12:44:25Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
       "id": "PR_kwDONxWjJ86JpcOu",
       "title": "Editorial updates",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "PieterKas",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Removed use of \"identity\" and clarified identifier and credential relationship. \r\n\r\nSeparated out authentication from authorisation.",
       "createdAt": "2025-01-31T14:17:59Z",
-      "updatedAt": "2025-01-31T14:17:59Z",
+      "updatedAt": "2025-02-05T12:23:41Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
-      "baseRefOid": "8331e96431846347d8a6bad171eb1385464cdd3a",
+      "baseRefOid": "9e1e5224313e5b4f9eb7d4cdb072621913cb9de6",
       "headRepository": "PieterKas/wimse-credential-exchange",
       "headRefName": "patch-1",
       "headRefOid": "4e9e2ee60ec45c25b3a754f7ffeb5b2fd8081695",
+      "closedAt": "2025-02-04T10:54:32Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "I'm not sure how this got closed ..",
+          "createdAt": "2025-02-05T12:08:58Z",
+          "updatedAt": "2025-02-05T12:08:58Z"
+        },
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "@PieterKas I took your changes and published them as PR #2 ",
+          "createdAt": "2025-02-05T12:23:40Z",
+          "updatedAt": "2025-02-05T12:23:40Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDONxWjJ86KIf-u",
+      "title": "Pieters suggestions from #1",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/2",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-05T12:23:15Z",
+      "updatedAt": "2025-02-05T12:39:34Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "ad369b23ebd1cb92c12a80ea90d4ba5a4ce0abca",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/pieters-pr",
+      "headRefOid": "7cd6b7c65e9dc7a764dfde4733af1608af472b34",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86atOw0",
+          "commit": {
+            "abbreviatedOid": "7cd6b7c"
+          },
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-05T12:26:14Z",
+          "updatedAt": "2025-02-05T12:39:34Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I'm thinking if we can change this to something like\r\n```\r\n* an anchor of trust. This is often implicit by the entity that signed the credential.\r\n```",
+              "createdAt": "2025-02-05T12:26:14Z",
+              "updatedAt": "2025-02-05T12:39:34Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "+1 on lifetime.\r\n\r\naudience restrictions is already too format specific IMO",
+              "createdAt": "2025-02-05T12:26:50Z",
+              "updatedAt": "2025-02-05T12:39:34Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "> Workloads may use these credentials to authenticate itself to another workload (e.g. accessing an API) or be authenticated by other workloads (e.g. when hosting a service or API to other workloads).\r\n\r\nI had to read this a few times to understand. Do you think we can make this a bit easier to grasp? Maybe we can use client and server terms?\r\n```\r\nWorkloads may use these credentials for authentication purposes such as client authentication (e.g. accessing an API) or server-authentication (e.g. hosting an API).\r\n```",
+              "createdAt": "2025-02-05T12:30:59Z",
+              "updatedAt": "2025-02-05T12:39:34Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
