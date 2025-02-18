@@ -108,7 +108,7 @@ Reasons and needs to exchange credentials are often not binary. A change in trus
 
 ## Provisioning, re-previsioning & exchange
 
-A workload has multiple option to obtain a credential with the attributes it requires. The following list highlights various options on how that can be acchieved:
+Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into 3 main mechanism:
 
 {:vspace}
 Initial provisioning
@@ -118,18 +118,16 @@ On-demand provisioning
 : Workloads are able to obtain credentials on-demand. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime and more it requires. No authentication is necessary to request on-demand credentials. Workloads may choose to request additional credentials on-demand based on its needs.
 
 Credential exchange
-: Workload use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters the workload can specify the exact attributes of the credential it requires. This is also on-demand based, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which are unauthenticated. Workloads may leverage credential exchange to obtain credentials based on its needs.
+: Workload use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters the workload can specify the exact attributes of the credential it requires. This is also on-demand based, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which is unauthenticated. Workloads may leverage credential exchange to obtain credentials based on its needs.
 
-Based on the need some approach is more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
-
-The following table gives some guidance based on the need:
+Based on the need some mechanisms is more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
 
 | Need | Preferred mechanism | Other options (in order) |
 |-----|------|-----|
 | Change in trust domain | Credential exchange | None |
-| Change in identity | Re-provisioning | 1) Pprovisioning<br>2) credential exchange |
-| Change in scope | Re-provisioning | 1) Provisioning<br>2) credential exchange |
-| Change in format | Re-provisioning | 1) Provisioning<br>2) credential exchange |
+| Change in identity | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
+| Change in scope | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
+| Change in format | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
 
 ## Exchange patterns
 
