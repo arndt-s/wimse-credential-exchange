@@ -108,28 +108,28 @@ Reasons and needs to exchange credentials are often not binary. A change in trus
 
 ## Provisioning, re-previsioning & exchange
 
-Once a workload requires a different credential it has multiple options to retrieve it. Based on the need the list of options shrinks. We differientate between the following 3 main options:
+A workload has multiple option to obtain a credential with the attributes it requires. The following list highlights various options on how that can be acchieved:
 
 {:vspace}
-Provisioning
-: The initial credential(s) the workload is provisioned with are modified. This is often a matter of configuration within the platform. For instance a service account token in Kubernetes is projected with a different audience. Or a new credential is provisioned alongside the existing credential.
+Initial provisioning
+: Credentials are issued during workload creation, the workload gets "born" with them. These credentials are fixed and pre-defined, often by configuration. The workload cannot influence their shape during runtime. Configuration may be changed to adjust initial provisioning based on the needs above.
 
-Re-provisioning
-: Workloads are able to request credentials without authentication. This can be in addition to an initial credential or the way the initial credential is delivered in the first place. This approach allows the workload to request credential in the exact format, scope and identity it requires.
+On-demand provisioning
+: Workloads are able to obtain credentials on-demand. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime and more it requires. No authentication is necessary to request on-demand credentials. Workloads may choose to request additional credentials on-demand based on its needs.
 
 Credential exchange
-: Workload use a provisioned credential to authenticate a delivery of a different credential. The significant difference here is that this is an authenticated action, compared to the other above, which are unauthenticated.
+: Workload use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters the workload can specify the exact attributes of the credential it requires. This is also on-demand based, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which are unauthenticated. Workloads may leverage credential exchange to obtain credentials based on its needs.
 
-If a workload is in need of a different format, identity or scope it is always reccomended to use the initial provisioning or re-provisioning instead of a credential exchange. These approaches have generally a higher assurance and are more secure than exchange an already provisioned credential.
+Based on the need some approach is more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
 
 The following table gives some guidance based on the need:
 
 | Need | Preferred mechanism | Other options (in order) |
 |-----|------|-----|
 | Change in trust domain | Credential exchange | None |
-| Change in identity | Provisioning | 1) Re-provisioning<br>2) credential exchange |
-| Change in scope | Provisioning | 1) Re-provisioning<br>2) credential exchange |
-| Change in format | Provisioning | 1) Re-provisioning<br>2) credential exchange |
+| Change in identity | Re-provisioning | 1) Pprovisioning<br>2) credential exchange |
+| Change in scope | Re-provisioning | 1) Provisioning<br>2) credential exchange |
+| Change in format | Re-provisioning | 1) Provisioning<br>2) credential exchange |
 
 ## Exchange patterns
 
@@ -200,9 +200,15 @@ Generally, these situations are not reccommended and should be avoided. Workload
 
 Alternatively, the authentication request should be enriched with additional identification that increases the level of authentication. E.g. authentication and additional proof of platform attestation.
 
-## Credential exchange cannot replace provisioning
+## Credential exchange cannot replace on-demand or initial provisioning
 
-Because credential exchange is authenticated it cannot replace provisioning. Without an initial credential a workload cannot facilitate credential exchange as there's no proof the workload is eligable for the requested credential.
+Because credential exchange is authenticated it cannot replace provisioning. Without an initial or on-demand requested credential a workload cannot facilitate credential exchange as there's no proof the workload is eligable for the requested credential.
+
+## Initial provisioning comes with over-provisioning risk {#use-on-demand-provisioning}
+
+Provisioning credentials preemptively risks being exposed to overprovisioning credentials that are not required. E.g. with initial provisioning, every workload is provisionied with a default credential, even though some don't require it (for instance because its just serving static content). This increases the risk of those credentials being unnecessarily exposed.
+
+On-demand provisioning on the other hand only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is require. This can significantly decrease the amount of unnecessarily issued & provisioned credentials.
 
 # Conventions and Definitions
 
@@ -225,6 +231,7 @@ This document has no IANA actions.
 
 * Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
 * Rephrased X509 change of scope example to be more clear.
+* Sharpened ways of provisioning, renamed "provisioning" to "initial provisioning" and "re-provisioning" to "on-demand provisioning".
 
 ## draft-schwenkschuster-wimse-credential-exchange-00
 
