@@ -208,6 +208,22 @@ Provisioning credentials preemptively risks being exposed to overprovisioning cr
 
 On-demand provisioning on the other hand only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is require. This can significantly decrease the amount of unnecessarily issued & provisioned credentials.
 
+## Involvement of human, transactional or other contextual credentials
+
+Whilst this document focuses heavily on workload identity, workloads often deal with other credentials carrying caller, transactional and/or contextual information. For instance, an access token of the caller used to authorize the request. Or an  OAuth Transaction Token that was part of the request coming from another workload carrying transactional data.
+
+These credentials and their formats, lifetime, scope, etc. are not covered by this document. However, they may be used as parameters or authentication to request additional credentials that combine multiple identities into a single credential.
+
+Some concrete examples are:
+* An access token and a workload identity credentials are used to request an OAuth Transaction Token.
+* A on-behalf-of scenario where a workload identity is used as actor and a different, contextual credential that doesn't represent the workload is used as a subject in an OAuth Token Exchange.
+
+On-demand provisioning or credential exchange MAY be used to issue any of those contextual credentials to the workload. Existing contextual credentials MAY be supplied as parameters. Initial provisioning is not suitable with existing contextual credentials as it does not support parameters. In situations where the workloads identity does not play a role and only the contextual credentials are used as authentication, credential exchange is the preferred mechanism.
+
+## Credential formats supporting offline-attenuation {#offline-attenuation}
+
+Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party. In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are Macaroons or Biscuit tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
