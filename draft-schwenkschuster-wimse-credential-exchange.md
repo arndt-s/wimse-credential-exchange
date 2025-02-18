@@ -245,6 +245,7 @@ This document has no IANA actions.
 * Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
 * Rephrased X509 change of scope example to be more clear.
 * Sharpened ways of provisioning, renamed "provisioning" to "initial provisioning" and "re-provisioning" to "on-demand provisioning".
+* Add "Change in lifetime" need.
 
 ## draft-schwenkschuster-wimse-credential-exchange-00
 
