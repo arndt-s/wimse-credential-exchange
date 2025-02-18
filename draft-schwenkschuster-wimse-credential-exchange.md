@@ -223,12 +223,6 @@ A change in lifetime of a credential can be critical if it can be used to effect
 
 Leveraging token exchange to request a shorter-lived credential which lifetime is within the bound of the credential used for authenticating the request remains valid.
 
-## Expanding credential lifetime {#exchange-to-renew}
-
-A change in lifetime of a credential can be critical if it can be used to effectively keep a credential alive. For instance a issued short-lived bearer credential that can be used to exchange for a new, longer lived credentials. Thus, it is highly recommended to only use on-demand provisioning to re-request a new credential.
-
-Leveraging token exchange to request a shorter-lived credential which lifetime is within the bound of the credential used for authenticating the request remains valid.
-
 ## Involvement of human, transactional or other contextual credentials
 
 Whilst this document focuses heavily on workload identity, workloads often deal with other credentials carrying caller, transactional and/or contextual information. For instance, an access token of the caller used to authorize the request. Or an  OAuth Transaction Token that was part of the request coming from another workload carrying transactional data.
