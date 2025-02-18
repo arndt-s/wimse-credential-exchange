@@ -96,6 +96,14 @@ A provisioned workload identity is often part of a trust domain that is coupled 
 * Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
 * A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance a workload requiring a WebPKI certificate to offer a service to the world wide web.
 
+### Change in lifetime
+
+Credentials often come in time-restricted manners. Or usage may be restricted based on lifetime. For instance:
+
+* A resource denies the long-lived credential the workload has availabe based on policy of maximum lifetime.
+* An initial provisioned credentials has expired and renewal is not supported.
+* A credential with shorter lifetime is desired to reduce replay risk.
+
 ### Missing provisioning support
 
 A workload platform may not support the provisioning of credentials required by the workload. Technically, any of these would likely fall under the reasons above but it's a very common reason and often falls into multiple categories. As an example:
@@ -128,6 +136,7 @@ Based on the need some mechanisms is more feasible and better suited than others
 | Change in identity | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
 | Change in scope | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
 | Change in format | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
+| Change in lifetime | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange (only decrease, see {{exchange-to-renew}}) |
 
 ## Exchange patterns
 
@@ -208,6 +217,18 @@ Provisioning credentials preemptively risks being exposed to overprovisioning cr
 
 On-demand provisioning on the other hand only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is require. This can significantly decrease the amount of unnecessarily issued & provisioned credentials.
 
+## Expanding credential lifetime {#exchange-to-renew}
+
+A change in lifetime of a credential can be critical if it can be used to effectively keep a credential alive. For instance a issued short-lived bearer credential that can be used to exchange for a new, longer lived credentials. Thus, it is highly recommended to only use on-demand provisioning to re-request a new credential.
+
+Leveraging token exchange to request a shorter-lived credential which lifetime is within the bound of the credential used for authenticating the request remains valid.
+
+## Expanding credential lifetime {#exchange-to-renew}
+
+A change in lifetime of a credential can be critical if it can be used to effectively keep a credential alive. For instance a issued short-lived bearer credential that can be used to exchange for a new, longer lived credentials. Thus, it is highly recommended to only use on-demand provisioning to re-request a new credential.
+
+Leveraging token exchange to request a shorter-lived credential which lifetime is within the bound of the credential used for authenticating the request remains valid.
+
 ## Involvement of human, transactional or other contextual credentials
 
 Whilst this document focuses heavily on workload identity, workloads often deal with other credentials carrying caller, transactional and/or contextual information. For instance, an access token of the caller used to authorize the request. Or an  OAuth Transaction Token that was part of the request coming from another workload carrying transactional data.
@@ -246,6 +267,7 @@ This document has no IANA actions.
 * Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
 * Rephrased X509 change of scope example to be more clear.
 * Sharpened ways of provisioning, renamed "provisioning" to "initial provisioning" and "re-provisioning" to "on-demand provisioning".
+* Add "Change in lifetime" need.
 * Add considerations for the involvement of contextual, transactional and human credentials
 * Add consideration for credential formats supporting offline-attenuation.
 
