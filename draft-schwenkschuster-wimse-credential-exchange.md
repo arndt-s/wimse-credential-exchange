@@ -222,7 +222,7 @@ On-demand provisioning or credential exchange MAY be used to issue any of those 
 
 ## Credential formats supporting offline-attenuation {#offline-attenuation}
 
-Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party. In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are Macaroons or Biscuit tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
+Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party ("offline-attenuation"). In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are Macaroons or Biscuit tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
 
 # Conventions and Definitions
 
@@ -246,6 +246,8 @@ This document has no IANA actions.
 * Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
 * Rephrased X509 change of scope example to be more clear.
 * Sharpened ways of provisioning, renamed "provisioning" to "initial provisioning" and "re-provisioning" to "on-demand provisioning".
+* Add considerations for the involvement of contextual, transactional and human credentials
+* Add consideration for credential formats supporting offline-attenuation.
 
 ## draft-schwenkschuster-wimse-credential-exchange-00
 
