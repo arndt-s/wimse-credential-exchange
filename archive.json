@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-18T01:15:56.147076+00:00",
+  "timestamp": "2025-02-20T01:16:43.505642+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -169,6 +169,90 @@
           ]
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDONxWjJ86LmvSh",
+      "title": "Re-phrase provisioning",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/4",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Rephrasing provisioning terms to make them more clear.",
+      "createdAt": "2025-02-18T14:15:52Z",
+      "updatedAt": "2025-02-18T14:39:44Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "c0484c621bdb0c7225737a00293a73f43bf0e731",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/rephase-provisioning",
+      "headRefOid": "2438310c8aa4eb51e3b89b927a903252f1c1242e",
+      "closedAt": "2025-02-18T14:39:40Z",
+      "mergedAt": "2025-02-18T14:39:40Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "d29205f5d979a4ac598fb547cf4545ddb7df96e1"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDONxWjJ86LnScX",
+      "title": "Add \"change of lifetime\" need",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/5",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "See title.",
+      "createdAt": "2025-02-18T15:12:12Z",
+      "updatedAt": "2025-02-18T16:02:28Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "d29205f5d979a4ac598fb547cf4545ddb7df96e1",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/add_lifetime",
+      "headRefOid": "e0bace117c7c5737308309c33257d5e251b1d7ed",
+      "closedAt": "2025-02-18T16:02:24Z",
+      "mergedAt": "2025-02-18T16:02:24Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "e3eeb4755b5126afec506f9611a967a2823710f4"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDONxWjJ86Ln01d",
+      "title": "Add considerations for contextual, transactional and human credentials and offline-attenuation",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/6",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Considerations how contextual, transactional & human credentials play a role in credential exchange. Also some wording regarding offline-attenuation.",
+      "createdAt": "2025-02-18T15:56:55Z",
+      "updatedAt": "2025-02-18T16:04:38Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "e3eeb4755b5126afec506f9611a967a2823710f4",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/add_contextual_credential_considerations",
+      "headRefOid": "324295415e65068d54f67d19bb9a73a0bb628d5c",
+      "closedAt": "2025-02-18T16:04:34Z",
+      "mergedAt": "2025-02-18T16:04:34Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "d6ba53d09d16824ed97ca3dd39cab2488b02d876"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
