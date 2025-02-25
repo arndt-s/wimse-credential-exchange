@@ -31,8 +31,6 @@ author:
     role: editor
 
 normative:
-  RFC4210:
-  RFC7030:
   RFC7521: Assertion flow
   RFC8693: Token exchange
 
@@ -58,11 +56,11 @@ Workload Identity credentials come in all shapes and forms. JSON Web Tokens are 
 
 Identity, credential and trust domain enable the workload to interact within its environment, communicate to sibling workloads (same trust domain), access APIs inside that trust domain or provide an API itself.
 
-## Needs
+# Needs
 
 Why a workload cannot use its existing credential can have lots of reasons and subsequent need. The following list highlights the most common ones and is certainly not complete.
 
-### Change in format
+## Change in format
 
 Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
 
@@ -71,7 +69,7 @@ Workloads may require a different format representing the same identity in the s
 
 Credential format is dificult to define. Some formats are opague to the workload and should remain that way. For instance how an OAuth Bearer token is construct and whether it carries claims or not is not a concern of the workload. That a Bearer token is required, however, is. Hence, for example, a change in format between a Bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a Bearer token on the other hand is not and this specification is not meant for this.
 
-### Change in scope
+## Change in scope
 
 A credential in the same format representing the same identity but scoped differently. Examples are:
 
@@ -82,21 +80,21 @@ Generally, scope should already be present and configured approperately with the
 
 In some situation the platform may only support the provisioning of a single credential and not support scoping it. If those cannot be requested by the platform itself an exchange may be necessary.
 
-### Change in identity
+## Change in identity
 
 A workload may be known under multiple identities. For example:
 
 * A workload identity representing an exact physical instance may be eligable for a workload identity representing a logical unit that consists of many phyiscal instances. Another example is a workload running in a specific region being eligable for a more broader, geo scoped identity.
 * A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API-Gateways, proxies or service meshes in container environments.
 
-### Change in trust domain
+## Change in trust domain
 
 A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often require to intercept with other workloads or access outside resources located in other trust domains or reside in different trust domains. This requires the client workload to retrieve an identity of the other trust domain. Examples here include:
 
 * Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
 * A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance a workload requiring a WebPKI certificate to offer a service to the world wide web.
 
-### Change in lifetime
+## Change in lifetime
 
 Credentials often come in time-restricted manners. Or usage may be restricted based on lifetime. For instance:
 
@@ -104,19 +102,19 @@ Credentials often come in time-restricted manners. Or usage may be restricted ba
 * An initial provisioned credentials has expired and renewal is not supported.
 * A credential with shorter lifetime is desired to reduce replay risk.
 
-### Missing provisioning support
+## Missing provisioning support
 
 A workload platform may not support the provisioning of credentials required by the workload. Technically, any of these would likely fall under the reasons above but it's a very common reason and often falls into multiple categories. As an example:
 
 * Workload platform provisions identity & credential in the form of a simple signed document that carries the attributes attested by the platform but gives not access in any way.
 
-### Combinations
+## Combinations
 
 Reasons and needs to exchange credentials are often not binary. A change in trust domain effectively is a change in identity too. A change in format can require a change in trust domain because formats come with different trust structures and security promises. E.g. a trust domain issuing JSON Web Tokens may not be able to issue WebPKI certificates.
 
-## Provisioning, re-previsioning & exchange
+# Mechanisms {#mechanisms}
 
-Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into 3 main mechanism:
+Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into 3 main mechanisms:
 
 {:vspace}
 Initial provisioning
@@ -137,10 +135,11 @@ Based on the need some mechanisms is more feasible and better suited than others
 | Change in scope | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
 | Change in format | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
 | Change in lifetime | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange (only decrease, see {{exchange-to-renew}}) |
+| Missing platform support | Credential exchange | None |
 
-## Exchange patterns
+# Exchange patterns
 
-### Format-specific exchange
+## Format-specific exchange
 
 Existing trust & identity framework often consist of a protocol or framework to exchange credentials. Leveraging this makes use of existing adoption and specific guidelines.
 
@@ -156,17 +155,7 @@ The following bullets give an overview of the existing patterns and when to use 
   * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope & potentially format is unavoidable but not the primary use case.
   * NOT meant for exchanges within a trust domain.
 
-* X.509 Certificate Management Protocol {{RFC4210}}:
-  * Is this valid here? If yes, write about it.
-
-* Enrollment over Secure Transport {{RFC7030}}:
-  * Profile of {{RFC4210}}?
-  * Is this valid here? If yes, write about it.
-
-* SPIFFE federation:
-  * Not a credential exchange but rather allowing for identities of different trust domains to trust each other and communicate securely. For SPIFFE the credential formats are JWT and X.509.
-
-### On-behalf-of exchange
+## On-behalf-of exchange
 
 Workload environments can be highly dynamic and connected with a high variety of resources protected by different identity frameworks and formats. A format-agnostic, exchange component that exchanges credentials on behalf of the workload may be desired to remain control of credential issuance. For instance to enforce policy, collect audit trails or ease management.
 
@@ -177,27 +166,30 @@ Workload environments can be highly dynamic and connected with a high variety of
 |                 |               |                        |                 |                     |
 +-------^---------+               +----------+-------------+                 +---------------------+
         |                                    |
-  1)initial provisioning                     |
+  1) Provisioning                            |
         |                              3) validate
-+-------+-----------------+                  |
++-------v-----------------+                  |
 |                         |                  |
 |  Workload Platform      |<-----------------+
 |                         |
 +-------------------------+
 ~~~
 
-TODO: describe steps
+1. The Workload Platform issues credential to the workload. This can be either "initial", during workload startup or "on-demand", once the workload requires it. See {{mechanisms}} for more details.
+2. The Workload requests a new credential from the Credential Exchanger by specifying at least the issuer, format and identity. Potentially also lifetime and scope. It authenticates itself with the credential it has received from the Workload Platform.
+3. The Credential Exchanger validates the credential it receives. For simplicity the diagram shows this as a interaction with the Workload Platform but other means of validations are also possible.
+4. The Credential Exchanger requests a credential from the Credential Issuer. Also, for simplicity this steps shows the interaction with a 3rd party, however, this may also be the Workload Platform itself. How this step is authenticated and its details are very dependent on the scenario, format and potentially trust framework.
 
-The author believes that a specific protocol that fits all credential formats and trust frameworks is not feasable while remaining the existing security promises of the format or framework. It rather believes that a profile for each scenario is the best way forward and welcomes them to profile this specificiation for their concrete use cases. As a general guidance it is reccommended
+The author believes that a specific protocol that fits all credential formats and trust frameworks is not feasable while remaining the existing security promises. He rather believes that a profile for each scenario is the best way forward and welcomes everyone to profile this specificiation for their concrete use cases. As a general guidance it is reccommended
 
 * to narrowly scope the scenarios and don't build a one-fits-all exchange for a specific format.
 * to decouple authentication and access control from the actual exchange as best as possible. E.g. a credential of one profile should be allowed as a mean of authentication to exchange to a credential of a different profile, regardless if the profiles are aware of each other or not.
+* to allow the workload to specify at least issuer, identity and format when requesting a credential. Lifetime and scope optionally, based on the need and support for it.
+* to keep multi-stepped issuance in mind. Some formats and trust frameworks may require the workload to perform challenges like responding to a nonce or sign a challenge.
 
-The "Credential Exchanger" shown in the figure may be the Workload Platform itself that offers this capability. Potentially also in a "re-provisioning" way without authentication.
+The "Credential Exchanger" shown in the figure MAY be the Workload Platform itself that offers this capability. Potentially also in a "re-provisioning" way without authentication.
 
 # Consideration
-
-TODO: add more.
 
 ## Credential exchange cannot increase trust
 
@@ -264,6 +256,8 @@ This document has no IANA actions.
 * Add "Change in lifetime" need.
 * Add considerations for the involvement of contextual, transactional and human credentials
 * Add consideration for credential formats supporting offline-attenuation.
+* Describe "Credential Exchanger" pattern.
+* Clean up for IETF 122.
 
 ## draft-schwenkschuster-wimse-credential-exchange-00
 
