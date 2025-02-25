@@ -33,8 +33,20 @@ author:
 normative:
   RFC7521: Assertion flow
   RFC8693: Token exchange
-
 informative:
+  Macaroons:
+    title: Cookies with Contextual Caveats for Decentralized Authorization in the Cloud
+    target: https://theory.stanford.edu/~ataly/Papers/macaroons.pdf
+    date: 2014
+    author:
+      - ins: A. Birgisson
+      - ins: J. G. Politz
+      - ins: U. Erlingsson
+      - ins: M. Vrable
+      - ins: M. Lentczner
+  Biscuit:
+    title: Biscuit, a bearer token with offline attenuation and decentralized verification
+    target: https://doc.biscuitsec.org/reference/specifications
 
 --- abstract
 
@@ -222,6 +234,7 @@ Whilst this document focuses heavily on workload identity, workloads often deal 
 These credentials and their formats, lifetime, scope, etc. are not covered by this document. However, they may be used as parameters or authentication to request additional credentials that combine multiple identities into a single credential.
 
 Some concrete examples are:
+
 * An access token and a workload identity credentials are used to request an OAuth Transaction Token.
 * A on-behalf-of scenario where a workload identity is used as actor and a different, contextual credential that doesn't represent the workload is used as a subject in an OAuth Token Exchange.
 
@@ -229,7 +242,7 @@ On-demand provisioning or credential exchange MAY be used to issue any of those 
 
 ## Credential formats supporting offline-attenuation {#offline-attenuation}
 
-Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party ("offline-attenuation"). In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are Macaroons or Biscuit tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
+Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party ("offline-attenuation"). In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are {{Macaroons}} or {{Biscuit}} tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
 
 # Conventions and Definitions
 
