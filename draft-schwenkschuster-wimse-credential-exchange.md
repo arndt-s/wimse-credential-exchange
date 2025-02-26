@@ -58,7 +58,7 @@ This document describes various situations where a workload requires another cre
 
 # Introduction
 
-Workload Identity credentials come in all shapes and forms. JSON Web Tokens are popular but also X.509 certificates are commonly used. When a workload is provisioned it can be assumed that it gets all of the following
+Workload Identity credentials come in many forms. JSON Web Tokens are popular but also X.509 certificates are commonly used. When a workload is provisioned it can be assumed that it gets all of the following
 
 * an identity in the form of an identifier.
 
@@ -66,27 +66,27 @@ Workload Identity credentials come in all shapes and forms. JSON Web Tokens are 
 
 * an indication of trust domain. (TODO not sure)
 
-Identity, credential and trust domain enable the workload to interact within its environment, communicate to sibling workloads (same trust domain), access APIs inside that trust domain or provide an API itself.
+Identity, credential and trust domain enable the workload to interact within its environment, communicate to sibling workloads (same trust domain), access APIs inside that trust domain, or provide an API itself.
 
-# Needs
+# Rationale
 
-Why a workload cannot use its existing credential can have lots of reasons and subsequent need. The following list highlights the most common ones and is certainly not complete.
+There are many reasons for a credential exchange. The following list highlights the most common reasons, and is not complete.
 
 ## Change in format
 
 Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
 
-* initial credential was an X.509 certificate but infrastructure requires application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
-* initial credential was a JWT bound to a key, requiring to be presented along with proof of possession but the peer does not support it and requires a Bearer credential.
+* The initial credential was an X.509 certificate but infrastructure requires application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
+* The initial credential was a JWT bound to a key to be presented along with proof of possession, but the peer does not support it and requires a bearer credential.
 
-Credential format is dificult to define. Some formats are opague to the workload and should remain that way. For instance how an OAuth Bearer token is construct and whether it carries claims or not is not a concern of the workload. That a Bearer token is required, however, is. Hence, for example, a change in format between a Bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a Bearer token on the other hand is not and this specification is not meant for this.
+"Credential format" is dificult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
 
 ## Change in scope
 
-A credential in the same format representing the same identity but scoped differently. Examples are:
+A credential in the same format may represent the same identity, scoped differently. Examples are:
 
-* A JWT credential audienced to interact with the Workload platform but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
-* An X.509 credential is constrained to a certain key usage but the workload requires additional ones. For instance the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
+* A JWT credential with an `audience` set to interact with the Workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
+* An X.509 credential is constrained to a certain key usage, but the workload requires difference usage bits set. For instance, the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
 
 Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload.
 
@@ -96,49 +96,49 @@ In some situation the platform may only support the provisioning of a single cre
 
 A workload may be known under multiple identities. For example:
 
-* A workload identity representing an exact physical instance may be eligable for a workload identity representing a logical unit that consists of many phyiscal instances. Another example is a workload running in a specific region being eligable for a more broader, geo scoped identity.
-* A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API-Gateways, proxies or service meshes in container environments.
+* A workload identity representing an exact physical instance may be eligable for a workload identity representing a logical unit that consists of many phyiscal instances. Another example is a workload running in a specific region being eligable for a more broader, geographically scoped identity.
+* A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
 
 ## Change in trust domain
 
-A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often require to intercept with other workloads or access outside resources located in other trust domains or reside in different trust domains. This requires the client workload to retrieve an identity of the other trust domain. Examples here include:
+A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in other trust domains or reside in different trust domains. This requires the client workload to retrieve an identity of the other trust domain. Examples here include:
 
 * Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
-* A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance a workload requiring a WebPKI certificate to offer a service to the world wide web.
+* A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance, a workload may require a WebPKI certificate to offer a service to clients with "default" trust stores.
 
 ## Change in lifetime
 
-Credentials often come in time-restricted manners. Or usage may be restricted based on lifetime. For instance:
+Credentials often come with time restrictions, or usage may be restricted based on token lifetime. For instance:
 
-* A resource denies the long-lived credential the workload has availabe based on policy of maximum lifetime.
-* An initial provisioned credentials has expired and renewal is not supported.
-* A credential with shorter lifetime is desired to reduce replay risk.
+* A resource denies the long-lived workload credential based on a maximum lifetime policy.
+* An initial provisioned credentials has expired and renewal is unsupported.
+* A credential with shorter lifetime would reduce replay risk.
 
 ## Missing provisioning support
 
-A workload platform may not support the provisioning of credentials required by the workload. Technically, any of these would likely fall under the reasons above but it's a very common reason and often falls into multiple categories. As an example:
+A workload platform may not support the provisioning of credentials required by the workload. Technically, any of these would likely fall under the reasons above, but it's a very common reason and often falls into multiple categories. As an example:
 
-* Workload platform provisions identity & credential in the form of a simple signed document that carries the attributes attested by the platform but gives not access in any way.
+* Workload platform provisions identity and credential in the form of a simple signed document that carries the attributes attested by the platform, but gives not access in any way.
 
 ## Combinations
 
-Reasons and needs to exchange credentials are often not binary. A change in trust domain effectively is a change in identity too. A change in format can require a change in trust domain because formats come with different trust structures and security promises. E.g. a trust domain issuing JSON Web Tokens may not be able to issue WebPKI certificates.
+Reasons for exchange credentials are often not binary. A change in trust domain is effectively a change in identity as well. A change in format can require a change in trust domain, because formats come with different trust structures and security promises. For example, a trust domain issuing JSON Web Tokens may not be able to issue WebPKI certificates.
 
 # Mechanisms {#mechanisms}
 
-Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into 3 main mechanisms:
+Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into three primary mechanisms:
 
 {:vspace}
 Initial provisioning
-: Credentials are issued during workload creation, the workload gets "born" with them. These credentials are fixed and pre-defined, often by configuration. The workload cannot influence their shape during runtime. Configuration may be changed to adjust initial provisioning based on the needs above.
+: Credentials are issued during workload creation. The workload is "born" with them. These credentials are fixed and pre-defined, often by configuration. The workload cannot influence their shape during runtime. Configuration may be changed to adjust initial provisioning.
 
 On-demand provisioning
-: Workloads are able to obtain credentials on-demand. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime and more it requires. No authentication is necessary to request on-demand credentials. Workloads may choose to request additional credentials on-demand based on its needs.
+: Workloads are able to obtain credentials on-demand. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other customization the workload requires. No authentication is necessary to request on-demand credentials. Workloads may choose to request additional on-demand credentials based on its needs. (TODO may emphasize that this is unauthenticated here)
 
 Credential exchange
-: Workload use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters the workload can specify the exact attributes of the credential it requires. This is also on-demand based, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which is unauthenticated. Workloads may leverage credential exchange to obtain credentials based on its needs.
+: Workloads use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. This is also on-demand, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which is **unauthenticated.** Workloads may leverage credential exchange to obtain credentials based on its needs.
 
-Based on the need some mechanisms is more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
+Based on the exchange need, some mechanisms are more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
 
 | Need | Preferred mechanism | Other options (in order) |
 |-----|------|-----|
@@ -153,7 +153,7 @@ Based on the need some mechanisms is more feasible and better suited than others
 
 ## Format-specific exchange
 
-Existing trust & identity framework often consist of a protocol or framework to exchange credentials. Leveraging this makes use of existing adoption and specific guidelines.
+The existing trust and identity framework often consist of a protocol or framework to exchange credentials. Leveraging this makes use of existing adoption and specific guidelines.
 
 The following bullets give an overview of the existing patterns and when to use them based on the needs given above:
 
@@ -164,12 +164,12 @@ The following bullets give an overview of the existing patterns and when to use 
   * NOT meant for a change in trust domain.
 
 * OAuth Assertion Framework {{RFC7521}} is:
-  * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope & potentially format is unavoidable but not the primary use case.
+  * meant for a change in trust domain. As a result of the change in trust domain, a change in identity, scope and, potentially, format is unavoidable but not the primary use case.
   * NOT meant for exchanges within a trust domain.
 
 ## On-behalf-of exchange
 
-Workload environments can be highly dynamic and connected with a high variety of resources protected by different identity frameworks and formats. A format-agnostic, exchange component that exchanges credentials on behalf of the workload may be desired to remain control of credential issuance. For instance to enforce policy, collect audit trails or ease management.
+Workload environments can be highly dynamic and connected with a high variety of resources protected by different identity frameworks and formats. A format-agnostic component that exchanges credentials on behalf of the workload may be desired to remain control of credential issuance. For instance, it might enforce policy, collect audit trails, or aid management.
 
 ~~~aasvg
 +-----------------+ 2)request     +------------------------+  4)request      +---------------------+
@@ -188,61 +188,61 @@ Workload environments can be highly dynamic and connected with a high variety of
 ~~~
 
 1. The Workload Platform issues credential to the workload. This can be either "initial", during workload startup or "on-demand", once the workload requires it. See {{mechanisms}} for more details.
-2. The Workload requests a new credential from the Credential Exchanger by specifying at least the issuer, format and identity. Potentially also lifetime and scope. It authenticates itself with the credential it has received from the Workload Platform.
-3. The Credential Exchanger validates the credential it receives. For simplicity the diagram shows this as a interaction with the Workload Platform but other means of validations are also possible.
-4. The Credential Exchanger requests a credential from the Credential Issuer. Also, for simplicity this steps shows the interaction with a 3rd party, however, this may also be the Workload Platform itself. How this step is authenticated and its details are very dependent on the scenario, format and potentially trust framework.
+2. The Workload requests a new credential from the Credential Exchanger by specifying at least the issuer, format, and identity. Potentially, it also specifies lifetime and scope. It authenticates itself with the credential it has received from the Workload Platform.
+3. The Credential Exchanger validates the credential it receives. For simplicity, the diagram shows this as a interaction with the Workload Platform, but other means of validations are also possible.
+4. The Credential Exchanger requests a credential from the Credential Issuer. Also, for simplicity this step shows the interaction with a third party. However, this may also be the Workload Platform itself. Authentication and other step details depend on the scenario, format, and trust framework.
 
-The author believes that a specific protocol that fits all credential formats and trust frameworks is not feasable while remaining the existing security promises. He rather believes that a profile for each scenario is the best way forward and welcomes everyone to profile this specificiation for their concrete use cases. As a general guidance it is reccommended
+The author believes that a specific protocol that fits all credential formats and trust frameworks is infeasable while remaining(maintaining?) the existing security promises. He rather believes that a profile for each scenario is the best way forward and welcomes everyone to profile this specificiation for their concrete use cases. As a general guidance it is recommended to:
 
-* to narrowly scope the scenarios and don't build a one-fits-all exchange for a specific format.
-* to decouple authentication and access control from the actual exchange as best as possible. E.g. a credential of one profile should be allowed as a mean of authentication to exchange to a credential of a different profile, regardless if the profiles are aware of each other or not.
-* to allow the workload to specify at least issuer, identity and format when requesting a credential. Lifetime and scope optionally, based on the need and support for it.
-* to keep multi-stepped issuance in mind. Some formats and trust frameworks may require the workload to perform challenges like responding to a nonce or sign a challenge.
+* narrowly scope the scenarios, instead of building a one-fits-all exchange for a specific format.
+* decouple authentication and access control from the actual exchange as best as possible. For example, a credential of one profile should be allowed as a means of authentication to exchange to a credential of a different profile, whether or not the profiles are aware of each other.
+* allow the workload to specify at least issuer, identity and format when requesting a credential. Lifetime and scope could be optionally specified, based on the need and support for it.
+* keep multi-stepped issuance in mind. Some formats and trust frameworks may require the workload to perform challenges, like responding to a nonce or providing a signature.
 
-The "Credential Exchanger" shown in the figure MAY be the Workload Platform itself that offers this capability. Potentially also in a "re-provisioning" way without authentication.
+The "Credential Exchanger" shown in the figure MAY be the Workload Platform itself that offers this capability. It MAY be offered during a "re-provisioning" without authentication.
 
 # Consideration
 
 ## Credential exchange cannot increase trust
 
-A credential exchange is an authenticated way to retrieve credential(s). Thus, the issued credential cannot have higher trust than the credential that was used to authenticate the request. This is particularly relevant when a credential is required which format and frameworks is of a higher trust than the one that was used to authenticate the request. This includes exchanging credentials not requiring proof of key possession to credentials carrying it.
+A credential exchange is an authenticated method to retrieve credential(s). Thus, the issued credential cannot be given a higher trust level than the credential that was used to authenticate the request. This is particularly relevant when a required credential, due to its format and framework, is of a higher trust than the one that was used to authenticate the request. This includes exchanging credentials without proof of key possession for credentials that do carry proof of possession.
 
-Generally, these situations are not reccommended and should be avoided. Workloads SHOULD be provisioned with the credential of the highest trust and only retrieve less-trusted credentials via credential exchange.
+These situations are not recommended. Workloads SHOULD be provisioned with the credential of the highest trust and only retrieve less-trusted credentials via credential exchange.
 
-Alternatively, the authentication request should be enriched with additional identification that increases the level of authentication. E.g. authentication and additional proof of platform attestation.
+Alternatively, the authentication request should be enriched with additional identification that increases the level of authentication. For example, along with authentication, the workload would provide additional proof of platform attestation.
 
 ## Credential exchange cannot replace on-demand or initial provisioning
 
-Because credential exchange is authenticated it cannot replace provisioning. Without an initial or on-demand requested credential a workload cannot facilitate credential exchange as there's no proof the workload is eligable for the requested credential.
+Because credential exchange is authenticated it cannot replace provisioning. Without an initial or on-demand requested credential a workload cannot facilitate credential exchange, as there is no proof the workload is eligible for the requested credential.
 
 ## Initial provisioning comes with over-provisioning risk {#use-on-demand-provisioning}
 
-Provisioning credentials preemptively risks being exposed to overprovisioning credentials that are not required. E.g. with initial provisioning, every workload is provisionied with a default credential, even though some don't require it (for instance because its just serving static content). This increases the risk of those credentials being unnecessarily exposed.
+Provisioning credentials preemptively risks being exposed to overprovisioning credentials that are not required. For example, with initial provisioning, every workload is provisioned with a default credential, even though some don't require it. This unnecessarily increases the risk of those credentials being exposed.
 
-On-demand provisioning on the other hand only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is require. This can significantly decrease the amount of unnecessarily issued & provisioned credentials.
+On-demand provisioning, on the other hand, only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is requires. This can significantly decrease the number of unnecessarily issued and provisioned credentials.
 
 ## Expanding credential lifetime {#exchange-to-renew}
 
-A change in lifetime of a credential can be critical if it can be used to effectively keep a credential alive. For instance a issued short-lived bearer credential that can be used to exchange for a new, longer lived credentials. Thus, it is highly recommended to only use on-demand provisioning to re-request a new credential.
+A change in lifetime of a credential can be critical if it can be used to effectively keep a credential alive. One example is an issued short-lived bearer credential that can be used to exchange for a new, longer-lived credentials. Thus, it is highly recommended to only use on-demand provisioning to re-request a new credential.
 
-Leveraging token exchange to request a shorter-lived credential which lifetime is within the bound of the credential used for authenticating the request remains valid.
+On the other hand, it is valid to leverage token exchange to request a shorter-lived credential whose lifetime is within the bound of the credential used for authenticating the request.
 
 ## Involvement of human, transactional or other contextual credentials
 
-Whilst this document focuses heavily on workload identity, workloads often deal with other credentials carrying caller, transactional and/or contextual information. For instance, an access token of the caller used to authorize the request. Or an  OAuth Transaction Token that was part of the request coming from another workload carrying transactional data.
+Although this document focuses heavily on workload identity, workloads often deal with other credentials carrying caller, transactional, or contextual information. This could include an access token of the caller used to authorize the request. or an OAuth Transaction Token that was part of the request coming from another workload carrying transactional data.
 
 These credentials and their formats, lifetime, scope, etc. are not covered by this document. However, they may be used as parameters or authentication to request additional credentials that combine multiple identities into a single credential.
 
 Some concrete examples are:
 
 * An access token and a workload identity credentials are used to request an OAuth Transaction Token.
-* A on-behalf-of scenario where a workload identity is used as actor and a different, contextual credential that doesn't represent the workload is used as a subject in an OAuth Token Exchange.
+* An on-behalf-of scenario where a workload identity is used as actor, and a different, contextual credential unrepresentative of the workload is used as a subject in an OAuth Token Exchange.
 
-On-demand provisioning or credential exchange MAY be used to issue any of those contextual credentials to the workload. Existing contextual credentials MAY be supplied as parameters. Initial provisioning is not suitable with existing contextual credentials as it does not support parameters. In situations where the workloads identity does not play a role and only the contextual credentials are used as authentication, credential exchange is the preferred mechanism.
+On-demand provisioning or credential exchange MAY be used to issue any of those contextual credentials to the workload. Existing contextual credentials MAY be supplied as parameters. Initial provisioning is not suitable with existing contextual credentials as it does not support parameters. In situations where the workload's identity does not play a role and only the contextual credentials are used as authentication, credential exchange is the preferred mechanism.
 
-## Credential formats supporting offline-attenuation {#offline-attenuation}
+## Credential formats supporting offline attenuation {#offline-attenuation}
 
-Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party ("offline-attenuation"). In these situations no exchange or on-demand provisioning is required and workloads can "act on their own". Examples of these formats are {{Macaroons}} or {{Biscuit}} tokens. The provisioning of a credential that supports offline-attenuation is still required in the first place.
+Some credential formats allow the scope of the credential to be reduced offline, without interaction to an issuing party ("offline attenuation"). In these situations no exchange or on-demand provisioning is required and workloads can "act on their own." Examples of these formats are {{Macaroons}} or {{Biscuit}} tokens. The provisioning of a credential that supports offline attenuation is still required in the first place.
 
 # Conventions and Definitions
 
