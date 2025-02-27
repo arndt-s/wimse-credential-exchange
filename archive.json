@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T01:18:29.927089+00:00",
+  "timestamp": "2025-02-27T01:18:16.095040+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -66,6 +66,54 @@
       "createdAt": "2025-02-05T12:44:25Z",
       "updatedAt": "2025-02-05T12:44:25Z",
       "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDONxWjJ86rlIya",
+      "title": "IETF 122 preparations",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/8",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "arndt-s"
+      ],
+      "labels": [
+        "documentation"
+      ],
+      "body": "High-level issue for IETF 122 preparations.",
+      "createdAt": "2025-02-25T14:45:53Z",
+      "updatedAt": "2025-02-25T14:47:01Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "Work in progress slides: https://docs.google.com/presentation/d/1oTpgezRjYk21z_MBMC1yL6UfhFXBZwsUc4KTwD6p5mg/edit?usp=sharing",
+          "createdAt": "2025-02-25T14:46:59Z",
+          "updatedAt": "2025-02-25T14:46:59Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDONxWjJ86rleBi",
+      "title": "Add references for macaroons and biscuits",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/9",
+      "state": "CLOSED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "arndt-s"
+      ],
+      "labels": [
+        "bug"
+      ],
+      "body": "**Describe the issue**\nCurrent draft mentions these formats but doesn't provide references.\n\n**Expected behavior**\nAdd informative references.",
+      "createdAt": "2025-02-25T15:14:20Z",
+      "updatedAt": "2025-02-25T16:08:09Z",
+      "closedAt": "2025-02-25T16:08:08Z",
       "comments": []
     }
   ],
@@ -253,6 +301,76 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDONxWjJ86Me97Z",
+      "title": "Multiple changes before IETF 122",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/7",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "* Describes \"Credential Exchanger\" pattern.\r\n* Clean up for IETF 122.\r\n* Re-arrange headline levels",
+      "createdAt": "2025-02-25T14:44:14Z",
+      "updatedAt": "2025-02-25T14:48:49Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "8f6287cbec441a50fa1f5e32d5c7288184c82946",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/prepare-ietf-122",
+      "headRefOid": "09bbcc877e4aa83e7e1b56ec24ef861bf7f575e2",
+      "closedAt": "2025-02-25T14:48:45Z",
+      "mergedAt": "2025-02-25T14:48:45Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "fdde01d2f1aacb730257d4b4b74248bff719c839"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDONxWjJ86Mhndg",
+      "title": "Copy editing to improve flow",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/10",
+      "state": "MERGED",
+      "author": "heymarcel",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Various edits to improve the flow and remove minor typos.",
+      "createdAt": "2025-02-25T19:48:18Z",
+      "updatedAt": "2025-02-26T09:12:49Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "2d13f2d4153d6a58d0bd999279203a3e1dd0e7fe",
+      "headRepository": "heymarcel/wimse-credential-exchange",
+      "headRefName": "main",
+      "headRefOid": "3859ef1e9db25aa78dff94b6c10c8fcf04e5e244",
+      "closedAt": "2025-02-26T09:12:37Z",
+      "mergedAt": "2025-02-26T09:12:37Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "a8c96398a2180d48e59cdbbe4d05b8ac6194661b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86dkweQ",
+          "commit": {
+            "abbreviatedOid": "3859ef1"
+          },
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "This is great, thank you!",
+          "createdAt": "2025-02-26T08:58:25Z",
+          "updatedAt": "2025-02-26T09:12:49Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
