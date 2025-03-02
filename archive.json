@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T01:18:16.095040+00:00",
+  "timestamp": "2025-03-02T01:22:40.483957+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -114,6 +114,60 @@
       "createdAt": "2025-02-25T15:14:20Z",
       "updatedAt": "2025-02-25T16:08:09Z",
       "closedAt": "2025-02-25T16:08:08Z",
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDONxWjJ86r91Vi",
+      "title": "Client secrets as credentials",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/11",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nThe document at the moment talks about credentials in an abstract way. But concrete forms of credentials vary in their (security) capabilities. For instance expiring Bearer credentials, key-bound credentials but also client secrets.\n\n**Describe the solution you'd like**\nI wonder if it would make sense to clarify that a bit and define this. For instance in the 3 categories outlined above?\n\n**Describe alternatives you've considered**\nIt may also be impossible to define clear boundaries between them? What's the difference between Bearer credential and client secrets?\n\n**Additional context**\nIt's very common to provision workloads with client secrets and derive(exchange) credentials for it that grant actual access.\n",
+      "createdAt": "2025-02-27T17:08:31Z",
+      "updatedAt": "2025-02-27T17:08:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDONxWjJ86r927K",
+      "title": "Primary & secondary credentials",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/12",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nThere's this notion of primary and secondary credentials. Primary being the initial credentials of a workload and secondary the ones that result from it (aka \"token exchange\"). \n\n**Describe the solution you'd like**\nI believe there could be value in adding these terms for clarity.\n\n**Describe alternatives you've considered**\n* What is a credential named that is derived from a secondary credential? Is that even recommended? Is it tertiary?\n* It's a clear statement that one cannot get to a primary credential from a secondary one.\n\n**Additional context**\nNone as of now.\n",
+      "createdAt": "2025-02-27T17:11:31Z",
+      "updatedAt": "2025-02-27T17:11:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDONxWjJ86r94Su",
+      "title": "Pattern: On-behalf-of behind on-demand provisioning",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/13",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nOne can hide a credential exchange behind on-demand provisioning. It's also the on-behalf-of pattern but comes with the \"on-demand\" properties that prevent preemptive issuance. In some ways it would also be \"unauthenticated\" from the workloads perspective but internally a credential would be issued to facilitate the exchange authentication.\n\n**Describe the solution you'd like**\nEither as separate pattern or wording to on-behalf-of exchange?\n\n**Describe alternatives you've considered**\nNeed to think about other patterns too. Maybe Q for WG.\n\n**Additional context**\nNone as of of now.\n",
+      "createdAt": "2025-02-27T17:14:13Z",
+      "updatedAt": "2025-02-27T17:14:13Z",
+      "closedAt": null,
       "comments": []
     }
   ],
