@@ -261,7 +261,7 @@ This document has no IANA actions.
 # Document History
 <cref>RFC Editor: please remove before publication.</cref>
 
-## draft-schwenkschuster-wimse-credential-exchange-xx
+## draft-schwenkschuster-wimse-credential-exchange-01
 
 * Fix typo that wrongly said OAuth2 assertion flow is not meant for inter-trust domain exchanges (meant was "intra").
 * Rephrased X509 change of scope example to be more clear.
