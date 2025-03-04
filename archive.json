@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:22:40.483957+00:00",
+  "timestamp": "2025-03-04T01:19:16.133145+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -84,7 +84,7 @@
       ],
       "body": "High-level issue for IETF 122 preparations.",
       "createdAt": "2025-02-25T14:45:53Z",
-      "updatedAt": "2025-02-25T14:47:01Z",
+      "updatedAt": "2025-03-03T10:37:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -93,6 +93,13 @@
           "body": "Work in progress slides: https://docs.google.com/presentation/d/1oTpgezRjYk21z_MBMC1yL6UfhFXBZwsUc4KTwD6p5mg/edit?usp=sharing",
           "createdAt": "2025-02-25T14:46:59Z",
           "updatedAt": "2025-02-25T14:46:59Z"
+        },
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "new version submitted: https://datatracker.ietf.org/doc/draft-schwenkschuster-wimse-credential-exchange/01/",
+          "createdAt": "2025-03-03T10:37:31Z",
+          "updatedAt": "2025-03-03T10:37:31Z"
         }
       ]
     },
@@ -422,6 +429,48 @@
           "body": "This is great, thank you!",
           "createdAt": "2025-02-26T08:58:25Z",
           "updatedAt": "2025-02-26T09:12:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDONxWjJ86NIWFG",
+      "title": "Prepare -01",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/14",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-03T10:34:37Z",
+      "updatedAt": "2025-03-03T10:37:26Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "a8c96398a2180d48e59cdbbe4d05b8ac6194661b",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/prepare-01",
+      "headRefOid": "afd8c644d502709e6b4a8f9c75f26ad8ecc070ac",
+      "closedAt": "2025-03-03T10:35:18Z",
+      "mergedAt": "2025-03-03T10:35:18Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "2dd25fbaf818aad149d4c4a4371f99a1fa565463"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86eLMSo",
+          "commit": {
+            "abbreviatedOid": "afd8c64"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "## PR Overview\n\nThis pull request updates the version identifier in the document history of the credential exchange draft.  \n- Version suffix changed from \"xx\" to \"01\" for consistency in versioning.\n\n### Reviewed Changes\n\n| File                                                        | Description                                               |\n| ----------------------------------------------------------- | --------------------------------------------------------- |\n| draft-schwenkschuster-wimse-credential-exchange.md          | Updated document version header in the \"Document History\" section to reflect the new version \"01\". |\n\nCopilot reviewed 1 out of 1 changed files in this pull request and generated no comments.\n\n<details>\n<summary>Comments suppressed due to low confidence (1)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:264**\n* The version identifier has been updated from 'xx' to '01'. Please ensure this naming change is consistent with the intended versioning scheme throughout the document.\n```\n## draft-schwenkschuster-wimse-credential-exchange-01\n```\n</details>\n\n",
+          "createdAt": "2025-03-03T10:37:26Z",
+          "updatedAt": "2025-03-03T10:37:26Z",
           "comments": []
         }
       ]
