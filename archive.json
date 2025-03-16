@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-13T01:20:33.511529+00:00",
+  "timestamp": "2025-03-16T01:25:29.781218+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -247,7 +247,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-02-05T12:23:15Z",
-      "updatedAt": "2025-02-05T12:39:34Z",
+      "updatedAt": "2025-03-15T14:42:45Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "ad369b23ebd1cb92c12a80ea90d4ba5a4ce0abca",
@@ -289,6 +289,46 @@
               "body": "> Workloads may use these credentials to authenticate itself to another workload (e.g. accessing an API) or be authenticated by other workloads (e.g. when hosting a service or API to other workloads).\r\n\r\nI had to read this a few times to understand. Do you think we can make this a bit easier to grasp? Maybe we can use client and server terms?\r\n```\r\nWorkloads may use these credentials for authentication purposes such as client authentication (e.g. accessing an API) or server-authentication (e.g. hosting an API).\r\n```",
               "createdAt": "2025-02-05T12:30:59Z",
               "updatedAt": "2025-02-05T12:39:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86gNBo-",
+          "commit": {
+            "abbreviatedOid": "7cd6b7c"
+          },
+          "author": "PieterKas",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-15T14:28:33Z",
+          "updatedAt": "2025-03-15T14:28:33Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "anchor of trust may also be a bit vague... how about:\r\n\r\n\"Information that allows a verifier to identify and trust the credential issuer\"",
+              "createdAt": "2025-03-15T14:28:33Z",
+              "updatedAt": "2025-03-15T14:28:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86gNLUA",
+          "commit": {
+            "abbreviatedOid": "7cd6b7c"
+          },
+          "author": "PieterKas",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-15T14:42:45Z",
+          "updatedAt": "2025-03-15T14:42:45Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Yup - I do worry about client/server terminology though... (reserved, comes with baggage and so on).\r\n\r\nHow about something simple like this: \r\n\r\nWorkloads may use these credentials with compatible protocols to authenticate themselves.\r\n\r\nAlternatively, we can delete the sentence, but I do want to say something about authentication though.",
+              "createdAt": "2025-03-15T14:42:45Z",
+              "updatedAt": "2025-03-15T14:42:45Z"
             }
           ]
         }
