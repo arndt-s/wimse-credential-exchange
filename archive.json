@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-16T01:25:29.781218+00:00",
+  "timestamp": "2025-03-18T01:20:22.285930+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -73,7 +73,7 @@
       "id": "I_kwDONxWjJ86rlIya",
       "title": "IETF 122 preparations",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -84,8 +84,8 @@
       ],
       "body": "High-level issue for IETF 122 preparations.",
       "createdAt": "2025-02-25T14:45:53Z",
-      "updatedAt": "2025-03-03T10:37:32Z",
-      "closedAt": null,
+      "updatedAt": "2025-03-16T09:15:09Z",
+      "closedAt": "2025-03-16T09:15:09Z",
       "comments": [
         {
           "author": "arndt-s",
