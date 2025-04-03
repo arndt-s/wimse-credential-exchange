@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:27:57.691520+00:00",
+  "timestamp": "2025-04-03T01:21:50.144303+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -137,7 +137,7 @@
       ],
       "body": "**Is your feature request related to a problem? Please describe.**\nThe document at the moment talks about credentials in an abstract way. But concrete forms of credentials vary in their (security) capabilities. For instance expiring Bearer credentials, key-bound credentials but also client secrets.\n\n**Describe the solution you'd like**\nI wonder if it would make sense to clarify that a bit and define this. For instance in the 3 categories outlined above?\n\n**Describe alternatives you've considered**\nIt may also be impossible to define clear boundaries between them? What's the difference between Bearer credential and client secrets?\n\n**Additional context**\nIt's very common to provision workloads with client secrets and derive(exchange) credentials for it that grant actual access.\n",
       "createdAt": "2025-02-27T17:08:31Z",
-      "updatedAt": "2025-03-04T15:41:31Z",
+      "updatedAt": "2025-04-01T15:24:01Z",
       "closedAt": null,
       "comments": [
         {
@@ -153,6 +153,13 @@
           "body": "IMO, this could be useful for cases where the IdP conducting the token exchange takes a strong credential in, and returns a weak API key credential in the response.  I could imagine an architecture where a Workload receives a rotatable SVID from its runtime environment, and in order to talk with an resource server that requires API keys, presents that SVID for token exchange.  In this case, the IdP, as a security-centric application, must follow best practices for storage and retrieval of API Keys.  This architecture could help reduce the risk of compromise of the API key, when compared to direct per-workload API key injection via environment variables.",
           "createdAt": "2025-03-04T15:41:29Z",
           "updatedAt": "2025-03-04T15:41:29Z"
+        },
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "* API keys\n* DB user / password \n* SA user / password\n* Hardware bound vs file system",
+          "createdAt": "2025-04-01T15:24:00Z",
+          "updatedAt": "2025-04-01T15:24:00Z"
         }
       ]
     },
