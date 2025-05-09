@@ -62,7 +62,7 @@ On many platforms workload receive an identity in the form of a JWT token or X50
 
 Workloads often need to access resources, for instance cloud resources or other workloads running in the same or different environments. Most of the time they require authentication in the form of presented credentials. This may be an OAuth 2.0 Access Token, a SPIFFE credential, based on a client certificate presented on a mutual TLS channel or something different. It is not in the control of the workload how resources are protected. The workload needs to satisfy the authentication requirements of the resources it needs to access.
 
-Workloads need to bridge the gap between the credential that has been issued to it by the platform and the credential requirements of the resources it is trying to access. This is often acchieved by exchanging the credential of the platform to a credential that satisfies the requirements of the resource but can also be acchieved by leveraging functionality from the platform.
+Workloads need to bridge the gap between the credential that has been issued to it by the platform and the credential requirements of the resources it is trying to access. This is often achieved by exchanging the credential of the platform to a credential that satisfies the requirements of the resource but can also be achieved by leveraging functionality from the platform.
 
 This specifications
 
@@ -81,7 +81,7 @@ Workloads may require a different format representing the same identity in the s
 * The initial credential was an X.509 certificate but resources requires application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
 * The initial credential was a JWT bound to a key to be presented along with proof of possession, but the resource does not support it and requires a bearer credential.
 
-"Credential format" is dificult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
+"Credential format" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
 
 ## Change in scope
 
@@ -96,12 +96,12 @@ Generally, scope should already be present and configured approperately with the
 
 A workload may be known under multiple identities. For example:
 
-* A workload identity representing an exact physical instance of the workload may be eligable for a workload identity representing a logical unit that groups many phyiscal instances together. Another example is a workload running in a specific region being eligable for a more broader, geographically scoped identity.
+* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a more broader, geographically scoped identity.
 * A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
 
 ## Change in trust domain
 
-A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may requires the client workload to retrieve an identity of the other trust domain. Examples here include:
+A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:
 
 * Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
 * A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance, a workload may require a WebPKI certificate to offer a service to clients with "default" trust stores.
