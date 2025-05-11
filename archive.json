@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T01:21:50.144303+00:00",
+  "timestamp": "2025-05-11T01:39:29.220603+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -534,6 +534,79 @@
           "createdAt": "2025-03-03T10:37:26Z",
           "updatedAt": "2025-03-03T10:37:26Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDONxWjJ86VkOyS",
+      "title": "Rephrase introduction",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/15",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "Rephrase the introduction, remove the part where it says that workloads require notion of identity, trust domain and authentication. This part was very vague and didn't really add anything to the document. The introduction now is more concise, presents the problem and outline of the doc. ",
+      "createdAt": "2025-05-09T10:47:48Z",
+      "updatedAt": "2025-05-09T10:50:56Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "2dd25fbaf818aad149d4c4a4371f99a1fa565463",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/rephrase-intro",
+      "headRefOid": "4876942223ebd5340541f09a7c4dd2340e27f665",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86ojfqN",
+          "commit": {
+            "abbreviatedOid": "3803139"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR rephrases the introduction to make the document more concise and directly outline the problem and structure.  \n- Removed vague statements regarding identity, trust domain, and authentication.  \n- Improved clarity in descriptions and updated section headings with anchors.\n\n\n\n",
+          "createdAt": "2025-05-09T10:49:00Z",
+          "updatedAt": "2025-05-09T10:49:01Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "The word 'acchieved' is misspelled. Please change it to 'achieved'.\n```suggestion\nWorkloads need to bridge the gap between the credential that has been issued to it by the platform and the credential requirements of the resources it is trying to access. This is often achieved by exchanging the credential of the platform to a credential that satisfies the requirements of the resource but can also be achieved by leveraging functionality from the platform.\n```",
+              "createdAt": "2025-05-09T10:49:00Z",
+              "updatedAt": "2025-05-09T10:49:02Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "[nitpick] The sentence 'This specifications' appears incomplete or incorrect; please revise or remove it for clarity.",
+              "createdAt": "2025-05-09T10:49:00Z",
+              "updatedAt": "2025-05-09T10:49:02Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "The word 'dificult' is misspelled. It should be 'difficult'.\n```suggestion\n\"Credential format\" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.\n```",
+              "createdAt": "2025-05-09T10:49:01Z",
+              "updatedAt": "2025-05-09T10:49:02Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "Spelling issues: 'eligable' should be 'eligible' and 'phyiscal' should be 'physical'.\n```suggestion\n* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a more broader, geographically scoped identity.\n```",
+              "createdAt": "2025-05-09T10:49:01Z",
+              "updatedAt": "2025-05-09T10:49:02Z"
+            },
+            {
+              "originalPosition": 63,
+              "body": "Grammar correction needed: 'This may requires' should be 'This may require'.\n```suggestion\nA provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:\n```",
+              "createdAt": "2025-05-09T10:49:01Z",
+              "updatedAt": "2025-05-09T10:49:02Z"
+            }
+          ]
         }
       ]
     }
