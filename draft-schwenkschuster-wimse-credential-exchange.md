@@ -78,7 +78,7 @@ There are many reasons for a credential exchange. The following list highlights 
 
 Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
 
-* The initial credential was an X.509 certificate but resources requires application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
+* The initial credential was an X.509 certificate but resources require application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
 * The initial credential was a JWT bound to a key to be presented along with proof of possession, but the resource does not support it and requires a bearer credential.
 
 "Credential format" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
@@ -96,7 +96,7 @@ Generally, scope should already be present and configured approperately with the
 
 A workload may be known under multiple identities. For example:
 
-* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a more broader, geographically scoped identity.
+* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.
 * A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
 
 ## Change in trust domain
