@@ -58,17 +58,19 @@ This document describes various situations where a workload requires another cre
 
 # Introduction
 
-Workload Identity credentials come in many forms. JSON Web Tokens are popular but also X.509 certificates are commonly used. When a workload is provisioned it can be assumed that it gets all of the following
+Workloads operating across various platforms typically receive identity credentials in platform-specific formats such as JWT tokens, X509 certificates, Kubernetes Service Accounts Tokens, SPIFFE SVIDs, or cloud provider metadata documents. These credentials, including their format, issuer, subject, and other attributes are determined by the platform infrastructure rather than the workload itself.
 
-* an identity in the form of an identifier.
+When accessing external resources or other workloads, workloads must satisfy different authentication requirements specific to each resource they interact with. Resource access might require OAuth 2.0 Access Tokens, SPIFFE credentials, mutual TLS client certificates, or other authentication mechanisms that the workload cannot control or modify.
 
-* one or multiple credentials that allow the workload to represent itself (as that identity). Multiple credentials are often different types but representing the same identity.
+This credential mismatch creates a fundamental challenge: workloads must bridge the gap between their platform-issued identity and the various authentication requirements of the resources they need to access. Solutions typically involve credential exchange mechanisms or leveraging platform-specific functionality.
 
-* an indication of trust domain. (TODO not sure)
+This specification:
 
-Identity, credential and trust domain enable the workload to interact within its environment, communicate to sibling workloads (same trust domain), access APIs inside that trust domain, or provide an API itself.
+* Examines the rationale behind credential exchange requirements in {{rationale}}
+* Defines abstract mechanisms for credential delivery and exchange in {{mechanisms}}
+* Documents concrete implementation patterns based on these mechanisms in {{patterns}}
 
-# Rationale
+# Rationale {#rationale}
 
 There are many reasons for a credential exchange. The following list highlights the most common reasons, and is not complete.
 
@@ -76,32 +78,30 @@ There are many reasons for a credential exchange. The following list highlights 
 
 Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
 
-* The initial credential was an X.509 certificate but infrastructure requires application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
-* The initial credential was a JWT bound to a key to be presented along with proof of possession, but the peer does not support it and requires a bearer credential.
+* The initial credential was an X.509 certificate but resources require application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
+* The initial credential was a JWT bound to a key to be presented along with proof of possession, but the resource does not support it and requires a bearer credential.
 
-"Credential format" is dificult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
+"Credential format" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
 
 ## Change in scope
 
-A credential in the same format may represent the same identity, scoped differently. Examples are:
+A credential in the same format may represent the same identity, but is scoped differently. Examples are:
 
-* A JWT credential with an `audience` set to interact with the Workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
+* A JWT credential with an `audience` set to interact with the workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
 * An X.509 credential is constrained to a certain key usage, but the workload requires difference usage bits set. For instance, the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
 
-Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload.
-
-In some situation the platform may only support the provisioning of a single credential and not support scoping it. If those cannot be requested by the platform itself an exchange may be necessary.
+Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.
 
 ## Change in identity
 
 A workload may be known under multiple identities. For example:
 
-* A workload identity representing an exact physical instance may be eligable for a workload identity representing a logical unit that consists of many phyiscal instances. Another example is a workload running in a specific region being eligable for a more broader, geographically scoped identity.
+* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.
 * A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
 
 ## Change in trust domain
 
-A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in other trust domains or reside in different trust domains. This requires the client workload to retrieve an identity of the other trust domain. Examples here include:
+A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:
 
 * Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
 * A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance, a workload may require a WebPKI certificate to offer a service to clients with "default" trust stores.
@@ -149,7 +149,7 @@ Based on the exchange need, some mechanisms are more feasible and better suited 
 | Change in lifetime | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange (only decrease, see {{exchange-to-renew}}) |
 | Missing platform support | Credential exchange | None |
 
-# Exchange patterns
+# Exchange patterns {#patterns}
 
 ## Format-specific exchange
 
