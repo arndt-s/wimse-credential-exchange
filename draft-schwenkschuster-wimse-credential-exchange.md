@@ -58,17 +58,17 @@ This document describes various situations where a workload requires another cre
 
 # Introduction
 
-On many platforms workload receive an identity in the form of a JWT token or X509 credential. For instance Kubernetes Service Accounts, SPIFFE Single Verifyable Identity Documents, AWS Instance Metadata Documents or tokens in the form of JWT issued by cloud providers. The format, issuer, subject and many other attributes are given by the platform and cannot be influenced by the workload.
+Workloads operating across various platforms typically receive identity credentials in platform-specific formats such as JWT tokens, X509 certificates, Kubernetes Service Accounts Tokens, SPIFFE SVIDs, or cloud provider metadata documents. These credentials, including their format, issuer, subject, and other attributes are determined by the platform infrastructure rather than the workload itself.
 
-Workloads often need to access resources, for instance cloud resources or other workloads running in the same or different environments. Most of the time they require authentication in the form of presented credentials. This may be an OAuth 2.0 Access Token, a SPIFFE credential, based on a client certificate presented on a mutual TLS channel or something different. It is not in the control of the workload how resources are protected. The workload needs to satisfy the authentication requirements of the resources it needs to access.
+When accessing external resources or other workloads, workloads must satisfy different authentication requirements specific to each resource they interact with. Resource access might require OAuth 2.0 Access Tokens, SPIFFE credentials, mutual TLS client certificates, or other authentication mechanisms that the workload cannot control or modify.
 
-Workloads need to bridge the gap between the credential that has been issued to it by the platform and the credential requirements of the resources it is trying to access. This is often achieved by exchanging the credential of the platform to a credential that satisfies the requirements of the resource but can also be achieved by leveraging functionality from the platform.
+This credential mismatch creates a fundamental challenge: workloads must bridge the gap between their platform-issued identity and the various authentication requirements of the resources they need to access. Solutions typically involve credential exchange mechanisms or leveraging platform-specific functionality.
 
-This specifications
+This specification:
 
-* identifies the various reasons why an exchange my be necessary in the {{rationale}}.
-* specifies the various abstract mechanisms workloads can retrieve different credentials in {{mechanisms}} and gives guidance.
-* documents more concrete patterns based on the abstract mechanism in {{patterns}}.
+* Examines the rationale behind credential exchange requirements in {{rationale}}
+* Defines abstract mechanisms for credential delivery and exchange in {{mechanisms}}
+* Documents concrete implementation patterns based on these mechanisms in {{patterns}}
 
 # Rationale {#rationale}
 
