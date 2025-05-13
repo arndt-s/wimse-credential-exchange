@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-11T01:39:29.220603+00:00",
+  "timestamp": "2025-05-13T01:27:50.810604+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -247,25 +247,33 @@
       "id": "PR_kwDONxWjJ86KIf-u",
       "title": "Pieters suggestions from #1",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-02-05T12:23:15Z",
-      "updatedAt": "2025-03-15T14:42:45Z",
+      "updatedAt": "2025-05-12T09:46:10Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "ad369b23ebd1cb92c12a80ea90d4ba5a4ce0abca",
       "headRepository": "arndt-s/wimse-credential-exchange",
       "headRefName": "arndt/pieters-pr",
       "headRefOid": "7cd6b7c65e9dc7a764dfde4733af1608af472b34",
-      "closedAt": null,
+      "closedAt": "2025-05-12T09:46:09Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "Introduction got a major make-over in #15 ",
+          "createdAt": "2025-05-12T09:46:09Z",
+          "updatedAt": "2025-05-12T09:46:09Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDONxWjJ86atOw0",
@@ -542,7 +550,7 @@
       "id": "PR_kwDONxWjJ86VkOyS",
       "title": "Rephrase introduction",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/15",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -551,17 +559,19 @@
       ],
       "body": "Rephrase the introduction, remove the part where it says that workloads require notion of identity, trust domain and authentication. This part was very vague and didn't really add anything to the document. The introduction now is more concise, presents the problem and outline of the doc. ",
       "createdAt": "2025-05-09T10:47:48Z",
-      "updatedAt": "2025-05-09T10:50:56Z",
+      "updatedAt": "2025-05-12T09:45:32Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "2dd25fbaf818aad149d4c4a4371f99a1fa565463",
       "headRepository": "arndt-s/wimse-credential-exchange",
       "headRefName": "arndt/rephrase-intro",
-      "headRefOid": "4876942223ebd5340541f09a7c4dd2340e27f665",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c3024f11fb8b115bbc1fff40201592b3a79ac1e4",
+      "closedAt": "2025-05-12T09:45:31Z",
+      "mergedAt": "2025-05-12T09:45:31Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "d1bf7cd79962933663b2b427d4826979592fbd93"
+      },
       "comments": [],
       "reviews": [
         {
@@ -570,7 +580,7 @@
             "abbreviatedOid": "3803139"
           },
           "author": "copilot-pull-request-reviewer",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "## Pull Request Overview\n\nThis PR rephrases the introduction to make the document more concise and directly outline the problem and structure.  \n- Removed vague statements regarding identity, trust domain, and authentication.  \n- Improved clarity in descriptions and updated section headings with anchors.\n\n\n\n",
           "createdAt": "2025-05-09T10:49:00Z",
@@ -605,6 +615,32 @@
               "body": "Grammar correction needed: 'This may requires' should be 'This may require'.\n```suggestion\nA provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:\n```",
               "createdAt": "2025-05-09T10:49:01Z",
               "updatedAt": "2025-05-09T10:49:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86o1ZIH",
+          "commit": {
+            "abbreviatedOid": "6968114"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR improves the introduction section of the document by clarifying the description of workload credentials and removing vague references to identity, trust domain, and authentication.  \n- Rephrases the introduction to focus on the problem and outlines the document structure.  \n- Removes redundant and unclear content regarding workload identity, trust, and credential exchange.\n\n\n\n",
+          "createdAt": "2025-05-12T09:41:39Z",
+          "updatedAt": "2025-05-12T09:41:40Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "Consider revising 'resources requires' to 'resource requires' for proper subject-verb agreement.\n```suggestion\n* The initial credential was an X.509 certificate but resources require application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).\n```",
+              "createdAt": "2025-05-12T09:41:39Z",
+              "updatedAt": "2025-05-12T09:41:40Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "Consider revising 'more broader' to 'broader' to avoid redundancy.\n```suggestion\n* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.\n```",
+              "createdAt": "2025-05-12T09:41:40Z",
+              "updatedAt": "2025-05-12T09:41:40Z"
             }
           ]
         }
