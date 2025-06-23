@@ -80,7 +80,7 @@ Credentials returned as by this specification are:
 - issued on demand, but potentially cached
 - are individual based on the credential used to authenticate
 
-On contrast, static secrets are:
+In contrast, static secrets are:
 
 - medium to long-lived
 - provisioned out-of-band, often manually
