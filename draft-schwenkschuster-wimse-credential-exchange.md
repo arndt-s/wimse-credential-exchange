@@ -70,6 +70,22 @@ This specification:
 * Defines abstract mechanisms for credential delivery and exchange in {{mechanisms}}
 * Documents concrete implementation patterns based on these mechanisms in {{patterns}}
 
+## Static secrets
+
+Credential exchange is a broad term and can be interpreted in many ways. This document focuses on the exchange of credentials that are issued to workloads on demand, such as JWTs, X.509 certificates, or other workload identity formats. It does not cover the exchange of static secrets, such as API keys or client secrets, which are typically provisioned out-of-band and do not involve a dynamic exchange process. This document rather sees static secrets as a special kind of resources that require strong authentication and authorization to access, but not as a credential exchange.
+
+Credentials returned as by this specification are:
+
+- short-lived
+- issued on demand, but potentially cached
+- are individual based on the credential used to authenticate
+
+On contrast, static secrets are:
+
+- medium to long-lived
+- provisioned out-of-band, often manually
+- do not differ based on authentication, different callers get access to the same credential
+
 # Rationale {#rationale}
 
 There are many reasons for a credential exchange. The following list highlights the most common reasons, and is not complete.
