@@ -4,16 +4,16 @@
 
 This is the working area for the individual Internet-Draft, "WIMSE Credential Exchange".
 
-* [Editor's Copy](https://arndt-s.github.io/wimse-token-exchange/#go.draft-schwenkschuster-wimse-credential-exchange.html)
+* [Editor's Copy](https://arndt-s.github.io/wimse-credential-exchange/#go.draft-schwenkschuster-wimse-credential-exchange.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-schwenkschuster-wimse-credential-exchange)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-schwenkschuster-wimse-credential-exchange)
-* [Compare Editor's Copy to Individual Draft](https://arndt-s.github.io/wimse-token-exchange/#go.draft-schwenkschuster-wimse-credential-exchange.diff)
+* [Compare Editor's Copy to Individual Draft](https://arndt-s.github.io/wimse-credential-exchange/#go.draft-schwenkschuster-wimse-credential-exchange.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/arndt-s/wimse-token-exchange/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/arndt-s/wimse-credential-exchange/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
