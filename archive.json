@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-13T01:27:50.810604+00:00",
+  "timestamp": "2025-06-24T01:39:26.614746+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -641,6 +641,102 @@
               "body": "Consider revising 'more broader' to 'broader' to avoid redundancy.\n```suggestion\n* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.\n```",
               "createdAt": "2025-05-12T09:41:40Z",
               "updatedAt": "2025-05-12T09:41:40Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDONxWjJ86bpV9T",
+      "title": "Regenerate files",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/16",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-23T11:11:36Z",
+      "updatedAt": "2025-06-23T11:13:38Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "d1bf7cd79962933663b2b427d4826979592fbd93",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "regenerate-files",
+      "headRefOid": "c47942140010215a1a9aa81fc7a536851ee68c74",
+      "closedAt": "2025-06-23T11:12:14Z",
+      "mergedAt": "2025-06-23T11:12:14Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "011448d8bbd2950443a241c10afc1dac23b8ed53"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86v0GiO",
+          "commit": {
+            "abbreviatedOid": "c479421"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR regenerates repository scaffolding and updates CI workflows after switching from a generic template to the specific \u201cWIMSE Credential Exchange\u201d draft.\n\n- Replace template README content with project-specific links and instructions\n- Add LICENSE.md and CONTRIBUTING.md with IETF contribution guidance\n- Rename artifacts in GitHub Actions workflows and add a CODEOWNERS file\n\n### Reviewed Changes\n\nCopilot reviewed 7 out of 8 changed files in this pull request and generated 1 comment.\n\n<details>\n<summary>Show a summary per file</summary>\n\n| File                                 | Description                                         |\r\n|--------------------------------------|-----------------------------------------------------|\r\n| README.md                            | Updated header, project links, contributing and CLI usage sections |\r\n| LICENSE.md                           | Added a placeholder license file pointing to guidelines |\r\n| CONTRIBUTING.md                      | Introduced IETF contribution policies and mailing list info |\r\n| .github/workflows/publish.yml        | Added `name: published` to the upload-artifact step |\r\n| .github/workflows/ghpages.yml        | Added `name: drafts` to the upload-artifact step    |\r\n| .github/workflows/archive.yml        | Added `name: archive` to the upload-artifact step   |\r\n| .github/CODEOWNERS                   | Generated CODEOWNERS mapping draft file to an owner |\n</details>\n\n\n\n<details>\n<summary>Comments suppressed due to low confidence (4)</summary>\n\n**LICENSE.md:1**\n* LICENSE.md currently only points to contribution guidelines; consider including the actual license text or a direct link to the chosen license (e.g., Simplified BSD) for clarity.\n```\n# License\n```\n**README.md:31**\n* This link references the template repo\u2019s SETUP instructions; update it to point to this repository\u2019s own setup documentation or use a relative path.\n```\n[the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).\n```\n**.github/workflows/publish.yml:57**\n* [nitpick] The artifact name 'published' may be unclear; consider renaming it to something like 'submitted-drafts' to match the job description and improve consistency.\n```\n        name: published\n```\n**.github/workflows/ghpages.yml:58**\n* [nitpick] Artifact is named 'drafts' here but other workflows use different names ('published', 'archive'); standardizing artifact naming across workflows would aid maintainability.\n```\n        name: drafts\n```\n</details>\n\n",
+          "createdAt": "2025-06-23T11:13:38Z",
+          "updatedAt": "2025-06-23T11:13:38Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "OWNER entries in CODEOWNERS should use GitHub handles prefixed with '@', not email addresses. Update this to the correct GitHub username (e.g., '@arndts').\n```suggestion\ndraft-schwenkschuster-wimse-credential-exchange.md @arndts\n```",
+              "createdAt": "2025-06-23T11:13:38Z",
+              "updatedAt": "2025-06-23T11:13:39Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDONxWjJ86bqwNa",
+      "title": "Add scope considerations for static secrets",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/17",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Attempt to scope out static secrets for credential exchange. Those are rather resources that require authn+authz than an exchange. \r\n\r\nResolves #11 ",
+      "createdAt": "2025-06-23T13:22:50Z",
+      "updatedAt": "2025-06-23T13:29:49Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "011448d8bbd2950443a241c10afc1dac23b8ed53",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/add_api_keys",
+      "headRefOid": "38a0623436c96acea4d363e36386c48b11ff5368",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86v10Hv",
+          "commit": {
+            "abbreviatedOid": "da4e566"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR adds a dedicated section discussing static secrets, distinguishing them from dynamic credential exchange. Key changes include:\n- Introduction of the \"Static secrets\" section.\n- Clarification of the differences between short-lived credentials and static secrets.\n- Updated bulleted lists outlining the properties of both credential types.\n\n\n\n",
+          "createdAt": "2025-06-23T13:23:05Z",
+          "updatedAt": "2025-06-23T13:23:06Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Consider replacing 'On contrast' with 'In contrast' for improved clarity and correctness.\n```suggestion\nIn contrast, static secrets are:\n```",
+              "createdAt": "2025-06-23T13:23:05Z",
+              "updatedAt": "2025-06-23T13:23:06Z"
             }
           ]
         }
