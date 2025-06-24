@@ -1,4 +1,4 @@
 # License
 
 See the
-[guidelines for contributions](https://github.com/arndt-s/wimse-token-exchange/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/arndt-s/wimse-credential-exchange/blob/main/CONTRIBUTING.md).
