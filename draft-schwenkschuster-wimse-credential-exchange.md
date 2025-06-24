@@ -88,7 +88,7 @@ In contrast, static secrets are:
 
 # Mechanisms {#mechanisms}
 
-Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:
+Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:
 
 {:vspace}
 Initial provisioning
@@ -171,7 +171,7 @@ Credentials often come with time restrictions, or usage may be restricted based 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
 | Initial provisioning | Avoid | Creates unnecessary long-lived credentials that are difficult to protected. |
-| On-demand provisioning | Prefer | Individual lifetimes that fit the excact need are possible. |
+| On-demand provisioning | Prefer | Individual lifetimes that fit the exact need are possible. |
 | Credential exchange | Neutral | May be used to reduce lifetime, but should be avoided to increase or expand lifetime as a credential that expires later is effectively a higher trust. See [security considerations](#credential-exchange-cannot-increase-trust) for details. |
 
 ## Missing provisioning support
