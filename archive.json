@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-24T01:39:26.614746+00:00",
+  "timestamp": "2025-06-26T01:38:35.920621+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -128,7 +128,7 @@
       "id": "I_kwDONxWjJ86r91Vi",
       "title": "Client secrets & API keys as credentials",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -137,8 +137,8 @@
       ],
       "body": "**Is your feature request related to a problem? Please describe.**\nThe document at the moment talks about credentials in an abstract way. But concrete forms of credentials vary in their (security) capabilities. For instance expiring Bearer credentials, key-bound credentials but also client secrets.\n\n**Describe the solution you'd like**\nI wonder if it would make sense to clarify that a bit and define this. For instance in the 3 categories outlined above?\n\n**Describe alternatives you've considered**\nIt may also be impossible to define clear boundaries between them? What's the difference between Bearer credential and client secrets?\n\n**Additional context**\nIt's very common to provision workloads with client secrets and derive(exchange) credentials for it that grant actual access.\n",
       "createdAt": "2025-02-27T17:08:31Z",
-      "updatedAt": "2025-04-01T15:24:01Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-24T12:32:31Z",
+      "closedAt": "2025-06-24T12:32:30Z",
       "comments": [
         {
           "author": "arndt-s",
@@ -700,24 +700,26 @@
       "id": "PR_kwDONxWjJ86bqwNa",
       "title": "Add scope considerations for static secrets",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Attempt to scope out static secrets for credential exchange. Those are rather resources that require authn+authz than an exchange. \r\n\r\nResolves #11 ",
       "createdAt": "2025-06-23T13:22:50Z",
-      "updatedAt": "2025-06-23T13:29:49Z",
+      "updatedAt": "2025-06-24T12:32:37Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "011448d8bbd2950443a241c10afc1dac23b8ed53",
       "headRepository": "arndt-s/wimse-credential-exchange",
       "headRefName": "arndt/add_api_keys",
       "headRefOid": "38a0623436c96acea4d363e36386c48b11ff5368",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-24T12:32:29Z",
+      "mergedAt": "2025-06-24T12:32:29Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "e76528c78da09136debc89a6dd8f688be4c5eab3"
+      },
       "comments": [],
       "reviews": [
         {
@@ -739,6 +741,127 @@
               "updatedAt": "2025-06-23T13:23:06Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDONxWjJ86b4YwO",
+      "title": "Move comparison to each section",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/18",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add mechanism comparison table to each section and include more details incl. intent. ",
+      "createdAt": "2025-06-24T14:32:12Z",
+      "updatedAt": "2025-06-24T14:36:27Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "e76528c78da09136debc89a6dd8f688be4c5eab3",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/move-table-to-sections",
+      "headRefOid": "02ee942febe775d06b4d1af2296d94094842a3cf",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86wFLDv",
+          "commit": {
+            "abbreviatedOid": "019b821"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR introduces detailed mechanism comparison tables into each rationale subsection and repositions the general \u201cMechanisms\u201d overview for clearer structure.\n\n- Adds a top-level \u201cMechanisms\u201d section describing initial, on-demand, and exchange flows.\n- Inserts recommendation tables under each change category (format, scope, identity, trust domain, lifetime, missing provisioning).\n- Expands descriptive text to clarify intent and usage nuances.\n\n\n<details>\n<summary>Comments suppressed due to low confidence (3)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:144**\n* Remove the question mark in the 'Neutral?' recommendation and standardize to 'Neutral' to match other table entries.\n```\n| On-demand provisioning | Neutral? | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:163**\n* The sentence is fragmented; consider rephrasing to 'This would likely fall under the reasons above...' or merging the clauses for grammatical correctness.\n```\nA workload platform may not support the provisioning of credentials required by the workload. would likely fall under the reasons above, but it's a very common reason and often falls into multiple categories. As an example:\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:130**\n* [nitpick] Consider separating the 'Neutral' stance from the 'Avoid for on-behalf-of situations' note\u2014either move the avoid guidance into the Reason column or rephrase to keep the Recommendation column focused on a single directive.\n```\n| Initial provisioning | Neutral. Avoid for on-behalf-of situations. | The authors believe that on-behalf-of should be an explicit operation and not by default to avoid ambiguity and keep trust boundaries clear. |\n```\n</details>\n\n",
+          "createdAt": "2025-06-24T14:33:13Z",
+          "updatedAt": "2025-06-24T14:36:27Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Correct the spelling of 'aquire' to 'acquire'.\n```suggestion\nWorkloads have multiple options to acquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:\n```",
+              "createdAt": "2025-06-24T14:33:13Z",
+              "updatedAt": "2025-06-24T14:33:14Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "Fix the typo 'excact' to 'exact'.\n```suggestion\n| On-demand provisioning | Prefer | Individual lifetimes that fit the exact need are possible. |\n```",
+              "createdAt": "2025-06-24T14:33:14Z",
+              "updatedAt": "2025-06-24T14:33:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86wFOOY",
+          "commit": {
+            "abbreviatedOid": "02ee942"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR introduces a mechanism comparison table to each section, providing more details on the intent and approach for different credential exchange scenarios. Key changes include:\n- Reordering bullets under the specification.\n- Adding a new \"Mechanisms\" section with detailed descriptions of initial provisioning, on\u2010demand provisioning, and credential exchange.\n- Introducing multiple comparison tables for different change types (format, scope, identity, trust domain, lifetime, and platform support).\n\n\n<details>\n<summary>Comments suppressed due to low confidence (1)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:160**\n* [nitpick] Consider revising 'Neutral?' to a definitive recommendation for clarity, either by removing the question mark or by providing a more explicit stance.\n```\n| On-demand provisioning | Neutral? | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |\n```\n</details>\n\n",
+          "createdAt": "2025-06-24T14:36:26Z",
+          "updatedAt": "2025-06-24T14:36:26Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "Typo: 'approperately' should be corrected to 'appropriately'.\n```suggestion\nGenerally, scope should already be present and configured appropriately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.\n```",
+              "createdAt": "2025-06-24T14:36:26Z",
+              "updatedAt": "2025-06-24T14:36:27Z"
+            },
+            {
+              "originalPosition": 93,
+              "body": "Typo: 'difficult to protected' should be revised to 'difficult to protect'.\n```suggestion\n| Initial provisioning | Avoid | Creates unnecessary long-lived credentials that are difficult to protect. |\n```",
+              "createdAt": "2025-06-24T14:36:26Z",
+              "updatedAt": "2025-06-24T14:36:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDONxWjJ86b4j_l",
+      "title": "Fix links",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/19",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-24T14:45:59Z",
+      "updatedAt": "2025-06-24T14:46:23Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "e76528c78da09136debc89a6dd8f688be4c5eab3",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/regenerate",
+      "headRefOid": "a5db7a64b6285cdee72824b4309cbec46747410c",
+      "closedAt": "2025-06-24T14:46:13Z",
+      "mergedAt": "2025-06-24T14:46:13Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "d1ee5c75bd843f2e3f235719f068fd1a214dfc19"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86wFaMe",
+          "commit": {
+            "abbreviatedOid": "a5db7a6"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR updates URLs to reflect the repository rename from `wimse-token-exchange` to `wimse-credential-exchange`.\n\n- Update Editor\u2019s Copy and diff comparison links in README\n- Update CONTRIBUTING guide links in both README and LICENSE\n\n### Reviewed Changes\n\nCopilot reviewed 2 out of 2 changed files in this pull request and generated no comments.\n\n| File       | Description                                                  |\n| ---------- | ------------------------------------------------------------ |\n| README.md  | Fixed URLs for Editor\u2019s Copy, diff comparison, and CONTRIBUTING link to use correct repo name |\n| LICENSE.md | Updated CONTRIBUTING link to use new repository path        |\n\n\n<details>\n<summary>Comments suppressed due to low confidence (2)</summary>\n\n**README.md:16**\n* The link under the Contributing section lost its list bullet; consider prefixing with `- ` to maintain consistent markdown list formatting.\n```\n[guidelines for contributions](https://github.com/arndt-s/wimse-credential-exchange/blob/main/CONTRIBUTING.md).\n```\n**LICENSE.md:4**\n* The link here is no longer a list item; if you intend a bullet, add `- ` before the link or consider embedding it inline in the sentence for clarity.\n```\n[guidelines for contributions](https://github.com/arndt-s/wimse-credential-exchange/blob/main/CONTRIBUTING.md).\n```\n</details>\n\n",
+          "createdAt": "2025-06-24T14:46:23Z",
+          "updatedAt": "2025-06-24T14:46:23Z",
+          "comments": []
         }
       ]
     }
