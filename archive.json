@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-26T01:38:35.920621+00:00",
+  "timestamp": "2025-06-29T01:48:19.532974+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -196,6 +196,24 @@
       "body": "**Is your feature request related to a problem? Please describe.**\nOne can hide a credential exchange behind on-demand provisioning. It's also the on-behalf-of pattern but comes with the \"on-demand\" properties that prevent preemptive issuance. In some ways it would also be \"unauthenticated\" from the workloads perspective but internally a credential would be issued to facilitate the exchange authentication.\n\n**Describe the solution you'd like**\nEither as separate pattern or wording to on-behalf-of exchange?\n\n**Describe alternatives you've considered**\nNeed to think about other patterns too. Maybe Q for WG.\n\n**Additional context**\nNone as of of now.\n",
       "createdAt": "2025-02-27T17:14:13Z",
       "updatedAt": "2025-02-27T17:14:13Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 20,
+      "id": "I_kwDONxWjJ869vJsE",
+      "title": "4-level provisioning",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/20",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nThe current `on-demand` pattern doesn't really highlight the difference towards credential exchange which is in many ways \"on-demand\" too. There's also some overlap with initial provisioning as platforms often implement on-demand by combining initial provisioning with credential exchange (e.g. Github, Kubernetes)\n\n**Describe the solution you'd like**\nAfter discussion with Andrew we landed on a 4-level provisioning concept:\n\n- Manual\n- Platform initial\n- Platform on-demand\n- Credential exchange\n\nThis would make it more clear to the reader that initial & on-demand is within the platform, but credential exchange outside of the platform. Manual provisioning kind of covers situations where the platform doesn't support either.\n\n**Additional context**\nAdd any other context or screenshots about the feature request here.\n",
+      "createdAt": "2025-06-27T15:41:43Z",
+      "updatedAt": "2025-06-27T15:41:43Z",
       "closedAt": null,
       "comments": []
     }
@@ -756,7 +774,7 @@
       "labels": [],
       "body": "Add mechanism comparison table to each section and include more details incl. intent. ",
       "createdAt": "2025-06-24T14:32:12Z",
-      "updatedAt": "2025-06-24T14:36:27Z",
+      "updatedAt": "2025-06-26T15:45:58Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "e76528c78da09136debc89a6dd8f688be4c5eab3",
@@ -818,6 +836,26 @@
               "body": "Typo: 'difficult to protected' should be revised to 'difficult to protect'.\n```suggestion\n| Initial provisioning | Avoid | Creates unnecessary long-lived credentials that are difficult to protect. |\n```",
               "createdAt": "2025-06-24T14:36:26Z",
               "updatedAt": "2025-06-24T14:36:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86wldKV",
+          "commit": {
+            "abbreviatedOid": "02ee942"
+          },
+          "author": "kenmccracken-google",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-26T15:45:58Z",
+          "updatedAt": "2025-06-26T15:45:58Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Change \"Avoid\" to \"Caution\".  I agree that the \"Risk\" is accurate as a concern, but IMO we should allow the developer to configure/direct the [workload agent](https://github.com/ietf-wg-wimse/draft-ietf-wimse-arch/blob/main/draft-ietf-wimse-arch.md#bootstrapping-workload-identifiers-and-credentials) to pre-provision initial credentials and reduce effective startup times.",
+              "createdAt": "2025-06-26T15:45:58Z",
+              "updatedAt": "2025-06-26T15:45:58Z"
             }
           ]
         }
