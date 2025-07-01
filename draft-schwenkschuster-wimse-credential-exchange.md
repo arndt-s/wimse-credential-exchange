@@ -91,14 +91,19 @@ In contrast, static secrets are:
 Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:
 
 {:vspace}
-Initial provisioning
-: Credentials are issued during workload creation. The workload is "born" with them. These credentials are fixed and pre-defined, often by configuration. The workload cannot influence their shape during runtime. Configuration may be changed to adjust initial provisioning.
+Initial manual provisioning
+: Credentials are provisioned manually, often by an administrator. This is typically done out-of-band, such as through a configuration file, environment variable, or secret management system. This mechanism is not recommended for workload identity credentials. Within the document, this mechanism is not further discussed.
 
-On-demand provisioning
-: Workloads are able to obtain credentials on-demand. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other customization the workload requires. No authentication is necessary to request on-demand credentials. Workloads may choose to request additional on-demand credentials based on its needs. (TODO may emphasize that this is unauthenticated here)
+Initial platform provisioning
+: Credentials are issued during workload creation by the platform. The workload is "born" with them and they are available at startup. The format, scope, lifetime and other attributes are configured out of band and cannot be influenced at runtime. It is common that platforms allow only a single credential to be provisioned and only allow changes to scope.
 
-Credential exchange
-: Workloads use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. This is also on-demand, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which is **unauthenticated.** Workloads may leverage credential exchange to obtain credentials based on its needs.
+On-demand platform issuance
+: Workloads are able to obtain credentials on-demand from the platform. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other attributes the workload requires. No authentication is necessary to request on-demand credentials. The platform is able to strongly identify the workload so this request is typically unauthenticated from the workloads point of view. Implementations may use the workload's initial provisioned credential in the background to authenticate the request, but this is not visible to the workload.
+
+On-demand credential exchange
+: Workloads use an existing credential (provisioned manually or by the platform) to authenticate and authorize a request for a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. The significant difference towards the on-demand platform issuance is that this is not necessarily within the platform and often an **authenticated** action.
+
+The outlined mechanisms are from the point of view of the workload. Specific mechanisms are often implemented by a combination of other mechanisms. For example, a platform on-demand provisioning mechanism may use an initial provisioned credential in combination with a credential exchange to issue a new credential. However, from the workload's perspective it is a platform on-demand provisioning mechanism, as it is not aware of the underlying implementation details.
 
 # Rationale {#rationale}
 
@@ -115,9 +120,9 @@ Workloads may require a different format representing the same identity in the s
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Caution | Risks preemptively issuing credentials that aren't used. See [security considerations](#use-on-demand-provisioning) for details. |
-| On-demand provisioning | Prefer | Credentials are issued on a need basis, allowing the workload to specify the format it requires & keep lifetime short. |
-| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+| Initial platform provisioning | Caution | Risks preemptively issuing credentials that aren't used. See [security considerations](#use-on-demand-provisioning) for details. |
+| On-demand platform issuance | Prefer | Credentials are issued on a need basis, allowing the workload to specify the format it requires & keep lifetime short. |
+| On-demand credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in scope
 
@@ -130,9 +135,9 @@ Generally, scope should already be present and configured appropriately with the
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Caution | Risk of over-provisioning and over-scoping. Particularly when different scopes are required but initial provisioning only allows a single credential. See [security considerations](#use-on-demand-provisioning) for details. |
-| On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
-| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+| Initial platform provisioning | Caution | Risk of over-provisioning and over-scoping. Particularly when different scopes are required but initial provisioning only allows a single credential. See [security considerations](#use-on-demand-provisioning) for details. |
+| On-demand platform issuance | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
+| On-demand credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in identity
 
@@ -143,9 +148,9 @@ A workload may be known under multiple identities. For example:
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Neutral. Avoid for on-behalf-of situations. | The authors believe that on-behalf-of should be an explicit operation and not by default to avoid ambiguity and keep trust boundaries clear. |
-| On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
-| Credential exchange | Prefer for on-behalf-of situations. | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+| Initial platform provisioning | Neutral. Avoid for on-behalf-of situations. | The authors believe that on-behalf-of should be an explicit operation and not by default to avoid ambiguity and keep trust boundaries clear. |
+| On-demand platform issuance | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
+| On-demand credential exchange | Prefer for on-behalf-of situations. | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in trust domain
 
@@ -156,9 +161,9 @@ A provisioned workload identity is often part of a trust domain that is coupled 
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Avoid | Initial provisioning is limited to the issuer of the workload platform. Making initial provisioned credentials multi-issuer creates ambiguity. |
-| On-demand provisioning | Neutral | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |
-| Credential exchange | Prefer | A change in trust domain indicates a different issuer. |
+| Initial platform provisioning | Avoid | Initial provisioning is limited to the issuer of the workload platform. Making initial provisioned credentials multi-issuer creates ambiguity. |
+| On-demand platform issuance | Neutral | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |
+| On-demand credential exchange | Prefer | A change in trust domain indicates a different issuer. |
 
 ## Change in lifetime
 
@@ -170,9 +175,9 @@ Credentials often come with time restrictions, or usage may be restricted based 
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Caution | Creates unnecessary long-lived credentials that are difficult to protect. |
-| On-demand provisioning | Prefer | Individual lifetimes that fit the exact need are possible. |
-| Credential exchange | Neutral | May be used to reduce lifetime, but should be avoided to increase or expand lifetime as a credential that expires later is effectively a higher trust. See [security considerations](#credential-exchange-cannot-increase-trust) for details. |
+| Initial platform provisioning | Caution | Creates unnecessary long-lived credentials that are difficult to protect. |
+| On-demand platform issuance | Prefer | Individual lifetimes that fit the exact need are possible. |
+| On-demand credential exchange | Neutral | May be used to reduce lifetime, but should be avoided to increase or expand lifetime as a credential that expires later is effectively a higher trust. See [security considerations](#credential-exchange-cannot-increase-trust) for details. |
 
 ## Missing provisioning support
 
@@ -182,9 +187,9 @@ A workload platform may not support the provisioning of credentials required by 
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | - | This section applies when initial provisioning is not supported. |
-| On-demand provisioning | - | This section applies when on-demand provisioning is not supported. |
-| Credential exchange | Neutral | Credential exchange may be used when no other mechanism is supported or supports the desired outcome. However, credential exchange still requires authentication. See [security considerations](#exchange-requires-authentication) for details. |
+| Initial platform provisioning | - | This section applies when initial provisioning is not supported. |
+| On-demand platform issuance | - | This section applies when on-demand provisioning is not supported. |
+| On-demand credential exchange | Neutral | Credential exchange may be used when no other mechanism is supported or supports the desired outcome. However, credential exchange still requires authentication. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Combinations
 
