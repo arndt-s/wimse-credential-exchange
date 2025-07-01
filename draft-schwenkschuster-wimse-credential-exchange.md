@@ -115,9 +115,9 @@ Workloads may require a different format representing the same identity in the s
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Avoid | Risks preemptively issuing credentials that aren't used. See [security considerations](#use-on-demand-provisioning) for details. |
+| Initial provisioning | Caution | Risks preemptively issuing credentials that aren't used. See [security considerations](#use-on-demand-provisioning) for details. |
 | On-demand provisioning | Prefer | Credentials are issued on a need basis, allowing the workload to specify the format it requires & keep lifetime short. |
-| Credential exchange | Avoid | Requires an additional credential. |
+| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in scope
 
@@ -126,13 +126,13 @@ A credential in the same format may represent the same identity, but is scoped d
 * A JWT credential with an `audience` set to interact with the workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
 * An X.509 credential is constrained to a certain key usage, but the workload requires difference usage bits set. For instance, the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
 
-Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.
+Generally, scope should already be present and configured appropriately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Avoid | Risk of over-provisioning and over-scoping. Particularly when different scopes are required but initial provisioning only allows a single credential. See [security considerations](#use-on-demand-provisioning) for details. |
+| Initial provisioning | Caution | Risk of over-provisioning and over-scoping. Particularly when different scopes are required but initial provisioning only allows a single credential. See [security considerations](#use-on-demand-provisioning) for details. |
 | On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
-| Credential exchange | Avoid | Requires an additional credential. |
+| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in identity
 
@@ -145,7 +145,7 @@ A workload may be known under multiple identities. For example:
 |-----------|----------------|--------|
 | Initial provisioning | Neutral. Avoid for on-behalf-of situations. | The authors believe that on-behalf-of should be an explicit operation and not by default to avoid ambiguity and keep trust boundaries clear. |
 | On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
-| Credential exchange | Prefer for on-behalf-of situations. | Requires an additional credential. |
+| Credential exchange | Prefer for on-behalf-of situations. | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
 
 ## Change in trust domain
 
@@ -157,7 +157,7 @@ A provisioned workload identity is often part of a trust domain that is coupled 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
 | Initial provisioning | Avoid | Initial provisioning is limited to the issuer of the workload platform. Making initial provisioned credentials multi-issuer creates ambiguity. |
-| On-demand provisioning | Neutral? | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |
+| On-demand provisioning | Neutral | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |
 | Credential exchange | Prefer | A change in trust domain indicates a different issuer. |
 
 ## Change in lifetime
@@ -170,7 +170,7 @@ Credentials often come with time restrictions, or usage may be restricted based 
 
 | Mechanism | Recommendation | Reason |
 |-----------|----------------|--------|
-| Initial provisioning | Avoid | Creates unnecessary long-lived credentials that are difficult to protected. |
+| Initial provisioning | Caution | Creates unnecessary long-lived credentials that are difficult to protect. |
 | On-demand provisioning | Prefer | Individual lifetimes that fit the exact need are possible. |
 | Credential exchange | Neutral | May be used to reduce lifetime, but should be avoided to increase or expand lifetime as a credential that expires later is effectively a higher trust. See [security considerations](#credential-exchange-cannot-increase-trust) for details. |
 
