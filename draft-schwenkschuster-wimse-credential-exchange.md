@@ -66,8 +66,8 @@ This credential mismatch creates a fundamental challenge: workloads must bridge 
 
 This specification:
 
-* Examines the rationale behind credential exchange requirements in {{rationale}}
 * Defines abstract mechanisms for credential delivery and exchange in {{mechanisms}}
+* Examines the rationale behind credential exchange requirements in {{rationale}}
 * Documents concrete implementation patterns based on these mechanisms in {{patterns}}
 
 ## Static secrets
@@ -86,63 +86,9 @@ In contrast, static secrets are:
 - provisioned out-of-band, often manually
 - do not differ based on authentication, different callers get access to the same credential
 
-# Rationale {#rationale}
-
-There are many reasons for a credential exchange. The following list highlights the most common reasons, and is not complete.
-
-## Change in format
-
-Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
-
-* The initial credential was an X.509 certificate but resources require application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
-* The initial credential was a JWT bound to a key to be presented along with proof of possession, but the resource does not support it and requires a bearer credential.
-
-"Credential format" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
-
-## Change in scope
-
-A credential in the same format may represent the same identity, but is scoped differently. Examples are:
-
-* A JWT credential with an `audience` set to interact with the workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
-* An X.509 credential is constrained to a certain key usage, but the workload requires difference usage bits set. For instance, the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
-
-Generally, scope should already be present and configured approperately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.
-
-## Change in identity
-
-A workload may be known under multiple identities. For example:
-
-* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.
-* A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
-
-## Change in trust domain
-
-A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:
-
-* Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
-* A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance, a workload may require a WebPKI certificate to offer a service to clients with "default" trust stores.
-
-## Change in lifetime
-
-Credentials often come with time restrictions, or usage may be restricted based on token lifetime. For instance:
-
-* A resource denies the long-lived workload credential based on a maximum lifetime policy.
-* An initial provisioned credentials has expired and renewal is unsupported.
-* A credential with shorter lifetime would reduce replay risk.
-
-## Missing provisioning support
-
-A workload platform may not support the provisioning of credentials required by the workload. Technically, any of these would likely fall under the reasons above, but it's a very common reason and often falls into multiple categories. As an example:
-
-* Workload platform provisions identity and credential in the form of a simple signed document that carries the attributes attested by the platform, but gives not access in any way.
-
-## Combinations
-
-Reasons for exchange credentials are often not binary. A change in trust domain is effectively a change in identity as well. A change in format can require a change in trust domain, because formats come with different trust structures and security promises. For example, a trust domain issuing JSON Web Tokens may not be able to issue WebPKI certificates.
-
 # Mechanisms {#mechanisms}
 
-Workloads have multiple options to aquire credentials in the way they are required. The following terms divides them into three primary mechanisms:
+Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:
 
 {:vspace}
 Initial provisioning
@@ -154,16 +100,95 @@ On-demand provisioning
 Credential exchange
 : Workloads use a provisioned credential (on-demand or initial) to authenticate and authorize a request of a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. This is also on-demand, however, the significant difference here is that this is an **authenticated** action, compared to on-demand provisioning, which is **unauthenticated.** Workloads may leverage credential exchange to obtain credentials based on its needs.
 
-Based on the exchange need, some mechanisms are more feasible and better suited than others. The following table gives some guidance based on the identified need. The security considerations below also highlight some additional considerations, particularly {{use-on-demand-provisioning}}.
+# Rationale {#rationale}
 
-| Need | Preferred mechanism | Other options (in order) |
-|-----|------|-----|
-| Change in trust domain | Credential exchange | None |
-| Change in identity | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
-| Change in scope | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
-| Change in format | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange |
-| Change in lifetime | On-demand provisioning | 1) Initial provisioning<br>2) Credential exchange (only decrease, see {{exchange-to-renew}}) |
-| Missing platform support | Credential exchange | None |
+Workloads often require credentials that differ from the ones they were initially provisioned with. This can be due to various reasons, such as changes in format, scope, identity, trust domain, or lifetime. The need for credential exchange arises when the workload needs to adapt to these changing requirements. The following sections outline the most common reasons for credential exchange, gives examples and provides recommendations for the mechanisms to use.
+
+## Change in format
+
+Workloads may require a different format representing the same identity in the same trust domain. Some concrete examples are:
+
+* The initial credential was an X.509 certificate but resources require application-level authentication such as JWT or Workload Identity Tokens as defined in (TODO).
+* The initial credential was a JWT bound to a key to be presented along with proof of possession, but the resource does not support it and requires a bearer credential.
+
+"Credential format" is difficult to define abstractly. Some formats are opaque to the workload and should remain that way. For instance, how an OAuth 2.0 Bearer token is constructed, and whether it carries claims or not, is not a concern of the workload. That a bearer token is required, however, is known to the workload. So a change in format between a bearer token and an X.509 certificate is certainly a change in format the workload can require. A different encoding of a bearer token, on the other hand, is not and this specification does not address those cases.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | Caution | Risks preemptively issuing credentials that aren't used. See [security considerations](#use-on-demand-provisioning) for details. |
+| On-demand provisioning | Prefer | Credentials are issued on a need basis, allowing the workload to specify the format it requires & keep lifetime short. |
+| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+
+## Change in scope
+
+A credential in the same format may represent the same identity, but is scoped differently. Examples are:
+
+* A JWT credential with an `audience` set to interact with the workload platform, but access to other workloads are required. The workload is in need of JWTs with different, dedicated audiences.
+* An X.509 credential is constrained to a certain key usage, but the workload requires difference usage bits set. For instance, the existing certificate allows for `digitalSignature` but `keyEncipherment` or `dataEncipherment` is required.
+
+Generally, scope should already be present and configured appropriately with the workload platform only issuing narrowly scoped credentials to the workload. However, the platform may only support the provisioning of a single credential and doesn't allow custom scoping.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | Caution | Risk of over-provisioning and over-scoping. Particularly when different scopes are required but initial provisioning only allows a single credential. See [security considerations](#use-on-demand-provisioning) for details. |
+| On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
+| Credential exchange | Caution | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+
+## Change in identity
+
+A workload may be known under multiple identities. For example:
+
+* A workload identity representing an exact physical instance of the workload may be eligible for a workload identity representing a logical unit that groups many physical instances together. Another example is a workload running in a specific region being eligible for a broader, geographically scoped identity.
+* A workload that can act on behalf of other workloads. These workloads often are part of infrastructure such as API gateways, proxies, or service meshes in container environments.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | Neutral. Avoid for on-behalf-of situations. | The authors believe that on-behalf-of should be an explicit operation and not by default to avoid ambiguity and keep trust boundaries clear. |
+| On-demand provisioning | Prefer | Credentials are issued on a need basis and can be scoped to the exact requirements of the workload. |
+| Credential exchange | Prefer for on-behalf-of situations. | Requires an additional credential to authenticate the exchange. See [security considerations](#exchange-requires-authentication) for details. |
+
+## Change in trust domain
+
+A provisioned workload identity is often part of a trust domain that is coupled to infrastructure or deployment. Workloads often interact with other workloads or access outside resources located in different trust domains. This may require the client workload to retrieve an identity of the other trust domain. Examples here include:
+
+* Federation (a workload identity federates to a identity in a different trust domain). In existing workload identity environment OAuth2 with Token Exchange (TODO) and Assertion framework (TODO) are popular.
+* A workload requires a credential of "higher trust" to interact with other workloads. This "higher trust" is facilitated by another trust domain. For instance, a workload may require a WebPKI certificate to offer a service to clients with "default" trust stores.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | Avoid | Initial provisioning is limited to the issuer of the workload platform. Making initial provisioned credentials multi-issuer creates ambiguity. |
+| On-demand provisioning | Neutral | See [On-behalf-of exchange pattern](#on-behalf-of-exchange) for a combination of on-demand provisioning and exchange. |
+| Credential exchange | Prefer | A change in trust domain indicates a different issuer. |
+
+## Change in lifetime
+
+Credentials often come with time restrictions, or usage may be restricted based on token lifetime. For instance:
+
+* A resource denies the long-lived workload credential based on a maximum lifetime policy.
+* An initial provisioned credentials has expired and renewal is unsupported.
+* A credential with shorter lifetime would reduce replay risk.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | Caution | Creates unnecessary long-lived credentials that are difficult to protect. |
+| On-demand provisioning | Prefer | Individual lifetimes that fit the exact need are possible. |
+| Credential exchange | Neutral | May be used to reduce lifetime, but should be avoided to increase or expand lifetime as a credential that expires later is effectively a higher trust. See [security considerations](#credential-exchange-cannot-increase-trust) for details. |
+
+## Missing provisioning support
+
+A workload platform may not support the provisioning of credentials required by the workload. would likely fall under the reasons above, but it's a very common reason and often falls into multiple categories. As an example:
+
+* Workload platform provisions identity and credential in the form of a simple signed document that carries the attributes attested by the platform, but gives not access in any way.
+
+| Mechanism | Recommendation | Reason |
+|-----------|----------------|--------|
+| Initial provisioning | - | This section applies when initial provisioning is not supported. |
+| On-demand provisioning | - | This section applies when on-demand provisioning is not supported. |
+| Credential exchange | Neutral | Credential exchange may be used when no other mechanism is supported or supports the desired outcome. However, credential exchange still requires authentication. See [security considerations](#exchange-requires-authentication) for details. |
+
+## Combinations
+
+Reasons for exchange credentials are often not binary. A change in trust domain is effectively a change in identity as well. A change in format can require a change in trust domain, because formats come with different trust structures and security promises. For example, a trust domain issuing JSON Web Tokens may not be able to issue WebPKI certificates.
 
 # Exchange patterns {#patterns}
 
@@ -227,7 +252,7 @@ These situations are not recommended. Workloads SHOULD be provisioned with the c
 
 Alternatively, the authentication request should be enriched with additional identification that increases the level of authentication. For example, along with authentication, the workload would provide additional proof of platform attestation.
 
-## Credential exchange cannot replace on-demand or initial provisioning
+## Credential exchange cannot replace on-demand or initial provisioning {#exchange-requires-authentication}
 
 Because credential exchange is authenticated it cannot replace provisioning. Without an initial or on-demand requested credential a workload cannot facilitate credential exchange, as there is no proof the workload is eligible for the requested credential.
 
