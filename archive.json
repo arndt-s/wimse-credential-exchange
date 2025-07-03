@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-29T01:48:19.532974+00:00",
+  "timestamp": "2025-07-03T01:39:31.155696+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -767,24 +767,26 @@
       "id": "PR_kwDONxWjJ86b4YwO",
       "title": "Move comparison to each section",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Add mechanism comparison table to each section and include more details incl. intent. ",
       "createdAt": "2025-06-24T14:32:12Z",
-      "updatedAt": "2025-06-26T15:45:58Z",
+      "updatedAt": "2025-07-01T09:51:08Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "e76528c78da09136debc89a6dd8f688be4c5eab3",
       "headRepository": "arndt-s/wimse-credential-exchange",
       "headRefName": "arndt/move-table-to-sections",
-      "headRefOid": "02ee942febe775d06b4d1af2296d94094842a3cf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "06f94720b6c21d14f4dc6b6c4ab292c2ab716607",
+      "closedAt": "2025-07-01T09:51:08Z",
+      "mergedAt": "2025-07-01T09:51:08Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "ee4d507537aff4a2e21b10d1210177b60a344059"
+      },
       "comments": [],
       "reviews": [
         {
@@ -858,6 +860,26 @@
               "updatedAt": "2025-06-26T15:45:58Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86xTOGC",
+          "commit": {
+            "abbreviatedOid": "02ee942"
+          },
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T09:50:19Z",
+          "updatedAt": "2025-07-01T09:50:19Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Applied",
+              "createdAt": "2025-07-01T09:50:19Z",
+              "updatedAt": "2025-07-01T09:50:19Z"
+            }
+          ]
         }
       ]
     },
@@ -900,6 +922,59 @@
           "createdAt": "2025-06-24T14:46:23Z",
           "updatedAt": "2025-06-24T14:46:23Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDONxWjJ86dHZBZ",
+      "title": "Rephrase mechanisms",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/21",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Differ between the following mechanisms:\r\n\r\n- Initial manual provisioning\r\n- Initial platform provisioning\r\n- On-demand platform issuance\r\n- On-demand credential exchange",
+      "createdAt": "2025-07-02T16:29:07Z",
+      "updatedAt": "2025-07-02T16:31:05Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "ee4d507537aff4a2e21b10d1210177b60a344059",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/4-level-provisioning",
+      "headRefOid": "6ae80aefcbdf2e94e1071076953b5e1d52d6272d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86xnQtM",
+          "commit": {
+            "abbreviatedOid": "6ae80ae"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR refines the terminology around credential acquisition by splitting and renaming the initial and on-demand mechanisms, adding new definitions, and updating the recommendation tables accordingly.\n\n- Split \u201cInitial provisioning\u201d into \u201cInitial manual provisioning\u201d and \u201cInitial platform provisioning\u201d\n- Introduced \u201cOn-demand platform issuance\u201d alongside \u201cOn-demand credential exchange\u201d\n- Updated all recommendation tables to use the new mechanism names\n\n\n<details>\n<summary>Comments suppressed due to low confidence (3)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:104**\n* [nitpick] Consider rephrasing for clarity, e.g.: `Compared to on-demand platform issuance, this mechanism typically occurs outside the platform and requires authentication.`\n```\n: Workloads use an existing credential (provisioned manually or by the platform) to authenticate and authorize a request for a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. The significant difference towards the on-demand platform issuance is that this is not necessarily within the platform and often an **authenticated** action.\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:100**\n* [nitpick] To keep terminology consistent, consider using `provisioning` instead of `issuance` (e.g., `On-demand platform provisioning`).\n```\nOn-demand platform issuance\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:94**\n* List items for the new mechanisms are missing the leading hyphen (`- `), which breaks the markdown list. Add `- ` before each mechanism title.\n```\nInitial manual provisioning\n```\n</details>\n\n",
+          "createdAt": "2025-07-02T16:31:05Z",
+          "updatedAt": "2025-07-02T16:31:05Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "The introduction says \u2018three primary mechanisms\u2019 but the list now has four items (including manual provisioning). Update the count or adjust the wording accordingly.\n```suggestion\nWorkloads have multiple options to acquire credentials in the way they are required. The following terms divides them into four primary mechanisms and outlines their approaches:\n```",
+              "createdAt": "2025-07-02T16:31:05Z",
+              "updatedAt": "2025-07-02T16:31:06Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "Missing apostrophe in `workloads`; it should read `workload's point of view`.\n```suggestion\n: Workloads are able to obtain credentials on-demand from the platform. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other attributes the workload requires. No authentication is necessary to request on-demand credentials. The platform is able to strongly identify the workload so this request is typically unauthenticated from the workload's point of view. Implementations may use the workload's initial provisioned credential in the background to authenticate the request, but this is not visible to the workload.\n```",
+              "createdAt": "2025-07-02T16:31:05Z",
+              "updatedAt": "2025-07-02T16:31:06Z"
+            }
+          ]
         }
       ]
     }
