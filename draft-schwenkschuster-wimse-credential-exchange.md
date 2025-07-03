@@ -88,7 +88,7 @@ In contrast, static secrets are:
 
 # Mechanisms {#mechanisms}
 
-Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into three primary mechanisms and outlines their approaches:
+Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into four primary mechanisms and outlines their approaches:
 
 {:vspace}
 Initial manual provisioning
@@ -98,7 +98,7 @@ Initial platform provisioning
 : Credentials are issued during workload creation by the platform. The workload is "born" with them and they are available at startup. The format, scope, lifetime and other attributes are configured out of band and cannot be influenced at runtime. It is common that platforms allow only a single credential to be provisioned and only allow changes to scope.
 
 On-demand platform issuance
-: Workloads are able to obtain credentials on-demand from the platform. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other attributes the workload requires. No authentication is necessary to request on-demand credentials. The platform is able to strongly identify the workload so this request is typically unauthenticated from the workloads point of view. Implementations may use the workload's initial provisioned credential in the background to authenticate the request, but this is not visible to the workload.
+: Workloads are able to obtain credentials on-demand from the platform. Parameters allow the workload to specify exactly the required format, scope, identity, lifetime, and other attributes the workload requires. No authentication is necessary to request on-demand credentials. The platform is able to strongly identify the workload so this request is typically unauthenticated from the workload's point of view. Implementations may use the workload's initial provisioned credential in the background to authenticate the request, but this is not visible to the workload.
 
 On-demand credential exchange
 : Workloads use an existing credential (provisioned manually or by the platform) to authenticate and authorize a request for a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. The significant difference towards the on-demand platform issuance is that this is not necessarily within the platform and often an **authenticated** action.
