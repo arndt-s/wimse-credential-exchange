@@ -88,7 +88,7 @@ In contrast, static secrets are:
 
 # Mechanisms {#mechanisms}
 
-Workloads have multiple options to acquire credentials in the way they are required. The following terms divides them into four primary mechanisms and outlines their approaches:
+Workloads have multiple options to acquire credentials in the way they are required. The following terms divide them into four primary mechanisms and outlines their approaches:
 
 {:vspace}
 Initial manual provisioning
@@ -265,7 +265,7 @@ Because credential exchange is authenticated it cannot be the first credential t
 
 Provisioning credentials preemptively risks being exposed to overprovisioning credentials that are not required. For example, with initial provisioning, every workload is provisioned with a default credential, even though some don't require it. This unnecessarily increases the risk of those credentials being exposed.
 
-On-demand-based provisioning, on the other hand, only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that is requires. This can significantly decrease the number of unnecessarily issued and provisioned credentials.
+On-demand-based provisioning, on the other hand, only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that are required. This can significantly decrease the number of unnecessarily issued and provisioned credentials.
 
 ## Expanding credential lifetime {#exchange-to-renew}
 
