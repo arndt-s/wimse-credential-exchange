@@ -30,6 +30,17 @@ author:
     email: arndts.ietf@gmail.com
     role: editor
 
+contributor:
+
+ -  fullname: Ken McCracken
+    organization: Google
+
+ -  fullname: Marcel Levy
+    organization: SPIRL
+
+ -  fullname: Andrew McCormick
+    organization: Aembit
+
 normative:
   RFC7521: Assertion flow
   RFC8693: Token exchange
@@ -308,6 +319,12 @@ This document has no IANA actions.
 
 # Document History
 <cref>RFC Editor: please remove before publication.</cref>
+
+## draft-schwenkschuster-wimse-credential-exchange-02
+
+* Rephrased introduction
+* Added scope consideration for static secrets
+* Moved to a 4-level mechanism classification, added manual, rephrased existing ones to make it more clear what is platform-based.
 
 ## draft-schwenkschuster-wimse-credential-exchange-01
 
