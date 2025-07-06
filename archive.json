@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-03T01:39:31.155696+00:00",
+  "timestamp": "2025-07-06T01:46:44.054065+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -204,7 +204,7 @@
       "id": "I_kwDONxWjJ869vJsE",
       "title": "4-level provisioning",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -213,9 +213,17 @@
       ],
       "body": "**Is your feature request related to a problem? Please describe.**\nThe current `on-demand` pattern doesn't really highlight the difference towards credential exchange which is in many ways \"on-demand\" too. There's also some overlap with initial provisioning as platforms often implement on-demand by combining initial provisioning with credential exchange (e.g. Github, Kubernetes)\n\n**Describe the solution you'd like**\nAfter discussion with Andrew we landed on a 4-level provisioning concept:\n\n- Manual\n- Platform initial\n- Platform on-demand\n- Credential exchange\n\nThis would make it more clear to the reader that initial & on-demand is within the platform, but credential exchange outside of the platform. Manual provisioning kind of covers situations where the platform doesn't support either.\n\n**Additional context**\nAdd any other context or screenshots about the feature request here.\n",
       "createdAt": "2025-06-27T15:41:43Z",
-      "updatedAt": "2025-06-27T15:41:43Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-07-03T08:19:59Z",
+      "closedAt": "2025-07-03T08:19:59Z",
+      "comments": [
+        {
+          "author": "arndt-s",
+          "authorAssociation": "OWNER",
+          "body": "Fixed in #21 ",
+          "createdAt": "2025-07-03T08:19:59Z",
+          "updatedAt": "2025-07-03T08:19:59Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -930,24 +938,26 @@
       "id": "PR_kwDONxWjJ86dHZBZ",
       "title": "Rephrase mechanisms",
       "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "arndt-s",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Differ between the following mechanisms:\r\n\r\n- Initial manual provisioning\r\n- Initial platform provisioning\r\n- On-demand platform issuance\r\n- On-demand credential exchange",
       "createdAt": "2025-07-02T16:29:07Z",
-      "updatedAt": "2025-07-02T16:31:05Z",
+      "updatedAt": "2025-07-03T08:19:35Z",
       "baseRepository": "arndt-s/wimse-credential-exchange",
       "baseRefName": "main",
       "baseRefOid": "ee4d507537aff4a2e21b10d1210177b60a344059",
       "headRepository": "arndt-s/wimse-credential-exchange",
       "headRefName": "arndt/4-level-provisioning",
-      "headRefOid": "6ae80aefcbdf2e94e1071076953b5e1d52d6272d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "be12e9f6fca8597c12db0ce50f9bd53937a78e21",
+      "closedAt": "2025-07-03T08:19:34Z",
+      "mergedAt": "2025-07-03T08:19:34Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "5e64f131374155cbcc42aa2842f82f4565c5d1a5"
+      },
       "comments": [],
       "reviews": [
         {
@@ -960,7 +970,7 @@
           "state": "COMMENTED",
           "body": "## Pull Request Overview\n\nThis PR refines the terminology around credential acquisition by splitting and renaming the initial and on-demand mechanisms, adding new definitions, and updating the recommendation tables accordingly.\n\n- Split \u201cInitial provisioning\u201d into \u201cInitial manual provisioning\u201d and \u201cInitial platform provisioning\u201d\n- Introduced \u201cOn-demand platform issuance\u201d alongside \u201cOn-demand credential exchange\u201d\n- Updated all recommendation tables to use the new mechanism names\n\n\n<details>\n<summary>Comments suppressed due to low confidence (3)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:104**\n* [nitpick] Consider rephrasing for clarity, e.g.: `Compared to on-demand platform issuance, this mechanism typically occurs outside the platform and requires authentication.`\n```\n: Workloads use an existing credential (provisioned manually or by the platform) to authenticate and authorize a request for a different credential. Based on parameters, the workload can specify the exact attributes of the credential it requires. The significant difference towards the on-demand platform issuance is that this is not necessarily within the platform and often an **authenticated** action.\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:100**\n* [nitpick] To keep terminology consistent, consider using `provisioning` instead of `issuance` (e.g., `On-demand platform provisioning`).\n```\nOn-demand platform issuance\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:94**\n* List items for the new mechanisms are missing the leading hyphen (`- `), which breaks the markdown list. Add `- ` before each mechanism title.\n```\nInitial manual provisioning\n```\n</details>\n\n",
           "createdAt": "2025-07-02T16:31:05Z",
-          "updatedAt": "2025-07-02T16:31:05Z",
+          "updatedAt": "2025-07-03T08:13:48Z",
           "comments": [
             {
               "originalPosition": 1,
@@ -975,6 +985,74 @@
               "updatedAt": "2025-07-02T16:31:06Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDONxWjJ86xwJ-D",
+          "commit": {
+            "abbreviatedOid": "41e575b"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nThis PR refines the terminology around workload credential acquisition by splitting the previous three mechanisms into four clearly named categories, updating their definitions, and aligning the recommendation tables and explanatory text.\n\n- Introduced four mechanism names: Initial manual provisioning, Initial platform provisioning, On-demand platform issuance, and On-demand credential exchange\n- Updated all mechanism descriptions and recommendation tables to reflect the new names\n- Addressed minor wording and grammar issues throughout the document\n\n\n<details>\n<summary>Comments suppressed due to low confidence (2)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:289**\n* Use consistent mechanism naming: change 'On-demand platform provisioning' to 'On-demand platform issuance' to match the header terminology.\n```\nOn-demand platform provisioning or credential exchange MAY be used to issue any of those contextual credentials to the workload. Existing contextual credentials MAY be supplied as parameters. Initial-based provisioning is not suitable with existing contextual credentials as it does not support parameters. In situations where the workload's identity does not play a role and only the contextual credentials are used as authentication, credential exchange is the preferred mechanism.\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:289**\n* Rename 'Initial-based provisioning' to 'Initial manual provisioning' (or 'Initial provisioning') to align with the mechanism name used elsewhere.\n```\nOn-demand platform provisioning or credential exchange MAY be used to issue any of those contextual credentials to the workload. Existing contextual credentials MAY be supplied as parameters. Initial-based provisioning is not suitable with existing contextual credentials as it does not support parameters. In situations where the workload's identity does not play a role and only the contextual credentials are used as authentication, credential exchange is the preferred mechanism.\n```\n</details>\n\n",
+          "createdAt": "2025-07-03T08:13:46Z",
+          "updatedAt": "2025-07-03T08:13:47Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The verb 'divides' should be 'divide' to match the plural subject 'terms'.\n```suggestion\nWorkloads have multiple options to acquire credentials in the way they are required. The following terms divide them into four primary mechanisms and outlines their approaches:\n```",
+              "createdAt": "2025-07-03T08:13:46Z",
+              "updatedAt": "2025-07-03T08:13:47Z"
+            },
+            {
+              "originalPosition": 137,
+              "body": "Correct 'is requires' to 'are required' for proper grammar.\n```suggestion\nOn-demand-based provisioning, on the other hand, only issues credential when requested and mitigates this. They are exactly in the scope, format, identity and lifetime that are required. This can significantly decrease the number of unnecessarily issued and provisioned credentials.\n```",
+              "createdAt": "2025-07-03T08:13:47Z",
+              "updatedAt": "2025-07-03T08:13:47Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDONxWjJ86dOaNQ",
+      "title": "Prepare 02 & add contributors",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/pull/22",
+      "state": "MERGED",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Prepares 02 version of this draft and add contributors",
+      "createdAt": "2025-07-03T08:37:49Z",
+      "updatedAt": "2025-07-03T08:39:27Z",
+      "baseRepository": "arndt-s/wimse-credential-exchange",
+      "baseRefName": "main",
+      "baseRefOid": "5e64f131374155cbcc42aa2842f82f4565c5d1a5",
+      "headRepository": "arndt-s/wimse-credential-exchange",
+      "headRefName": "arndt/prepare-02",
+      "headRefOid": "1d8c3ba5dda13676baa3ace29e817ed79edcf12b",
+      "closedAt": "2025-07-03T08:38:27Z",
+      "mergedAt": "2025-07-03T08:38:27Z",
+      "mergedBy": "arndt-s",
+      "mergeCommit": {
+        "oid": "3f8e4bb388b3cfe3d6afbedda27991d40a2ff355"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONxWjJ86xwd0G",
+          "commit": {
+            "abbreviatedOid": "1d8c3ba"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "## Pull Request Overview\n\nPrepares the draft for version 02 and adds contributor metadata.\n\n- Added new contributors to the front matter\n- Introduced a document history entry for draft-02\n\n\n<details>\n<summary>Comments suppressed due to low confidence (2)</summary>\n\n**draft-schwenkschuster-wimse-credential-exchange.md:33**\n* The metadata key 'contributor' should be pluralized to 'contributors' to match the list semantics and existing front-matter style.\n```\ncontributor:\n```\n**draft-schwenkschuster-wimse-credential-exchange.md:35**\n* Remove the extra blank line after 'contributors:' and align list items directly under the key to ensure valid YAML formatting.\n```\n -  fullname: Ken McCracken\n```\n</details>\n\n",
+          "createdAt": "2025-07-03T08:39:27Z",
+          "updatedAt": "2025-07-03T08:39:27Z",
+          "comments": []
         }
       ]
     }
