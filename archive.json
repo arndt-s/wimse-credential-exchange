@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T01:46:44.054065+00:00",
+  "timestamp": "2025-07-24T01:47:15.759838+00:00",
   "repo": "arndt-s/wimse-credential-exchange",
   "labels": [
     {
@@ -224,6 +224,24 @@
           "updatedAt": "2025-07-03T08:19:59Z"
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "I_kwDONxWjJ87BzfWE",
+      "title": "On-demand more relevant for audienced credentials",
+      "url": "https://github.com/arndt-s/wimse-credential-exchange/issues/23",
+      "state": "OPEN",
+      "author": "arndt-s",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "**Is your feature request related to a problem? Please describe.**\nThe initial provisioning is not as bad for X509 and WIT as they provide proof of key possession and carry indent/audience with every call.\n\n**Describe the solution you'd like**\nWe should maybe add text for that? ",
+      "createdAt": "2025-07-22T07:40:43Z",
+      "updatedAt": "2025-07-22T07:40:43Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
