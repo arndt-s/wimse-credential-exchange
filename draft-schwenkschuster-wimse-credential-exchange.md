@@ -67,6 +67,10 @@ This document describes various situations where a workload requires another cre
 
 --- middle
 
+# Status
+
+This work has been postponed for the time being due to a lack of interest on the part of the working group. The authors and contributors believe this work to be more relevant in the future. If you are interested in this work, please contact the contributors of this draft.
+
 # Introduction
 
 Workloads operating across various platforms typically receive identity credentials in platform-specific formats such as JWT tokens, X509 certificates, Kubernetes Service Accounts Tokens, SPIFFE SVIDs, or cloud provider metadata documents. These credentials, including their format, issuer, subject, and other attributes are determined by the platform infrastructure rather than the workload itself.
