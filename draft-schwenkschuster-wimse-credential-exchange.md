@@ -69,7 +69,7 @@ This document describes various situations where a workload requires another cre
 
 # Status
 
-This work has been postponed for the time being due to a lack of interest on the part of the working group.  If you are interested in this work, please contact the contributors to this draft.
+This work has been postponed for the time being due to a lack of interest on the part of the working group. The authors and contributors believe this work to be more relevant in the future. If you are interested in this work, please contact the contributors of this draft.
 
 # Introduction
 
