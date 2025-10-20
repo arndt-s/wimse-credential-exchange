@@ -324,6 +324,11 @@ This document has no IANA actions.
 # Document History
 <cref>RFC Editor: please remove before publication.</cref>
 
+## draft-schwenkschuster-wimse-credential-exchange-03
+
+* Add wording that this work is postponed
+* Update affiliation
+
 ## draft-schwenkschuster-wimse-credential-exchange-02
 
 * Rephrased introduction
