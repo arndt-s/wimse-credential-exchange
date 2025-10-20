@@ -26,7 +26,7 @@ venue:
 
 author:
  -  fullname: Arndt Schwenkschuster
-    organization: SPIRL
+    organization: Defakto Security
     email: arndts.ietf@gmail.com
     role: editor
 
@@ -36,7 +36,7 @@ contributor:
     organization: Google
 
  -  fullname: Marcel Levy
-    organization: SPIRL
+    organization: Defakto Security
 
  -  fullname: Andrew McCormick
     organization: Aembit
